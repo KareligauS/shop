@@ -10,9 +10,10 @@ class DialogueOverlay {
   PVector dialogueLoc;
 
   // Character
-  Character activeCharacter;
+  Character character;
   PShape characterSprite;
-  String characterMood;
+  String characterName;
+  Emotion characterEmotion;
   String dialogue;
 
   DialogueOverlay(String dialoguePart) {
@@ -31,8 +32,6 @@ class DialogueOverlay {
     background = drawBackground();
 
     dialogueLoc = new PVector(margin + charBackWidth + padding, height - textBackHeight - margin);
-
-    activeCharacter = testChar; // REMOVE
 
     updateDialogue();
   }
@@ -56,46 +55,55 @@ class DialogueOverlay {
   }
 
   void drawCharacter() {
-    activeCharacter.updateSprite();
-    characterSprite = activeCharacter.drawSprite();
+    character.setEmotion(characterEmotion);
+    character.updateSprite();
+    characterSprite = character.drawSprite();
 
-    PVector characterSpriteLoc = new PVector((charBackWidth/2)+margin-(activeCharacter.spriteWidth/2), 
-                                             height-margin-activeCharacter.spriteHeight);
+    PVector characterSpriteLoc = new PVector((charBackWidth/2)+margin-(character.spriteWidth/2), 
+                                             height-margin-character.spriteHeight);
 
-    pushMatrix();
-    translate(characterSpriteLoc.x, characterSpriteLoc.y);
-    shape(characterSprite);
-    popMatrix();
+    shape(characterSprite, characterSpriteLoc.x, characterSpriteLoc.y);
   }
 
   void drawDialogue() {
-    String who = dialogueLoader.getCurrentChar(); // REMOVE
-
     pushStyle();
     textAlign(LEFT, TOP);
     
     // Header
     textSize(30);
-    text(who, dialogueLoc.x, dialogueLoc.y + padding);
+    text(characterName + " ("+characterEmotion+")", dialogueLoc.x, dialogueLoc.y + padding);
 
     // Body, wrap inside the text box
     textSize(20);
     text(dialogue, dialogueLoc.x, dialogueLoc.y + 4*padding, textBackWidth - 2*padding, textBackHeight - 2*padding - 4*padding);
     popStyle();
   }
+
+  void startDialogue() {
+    activeDialogue = this;
+  }
+
+  void stopDialogue() {
+    activeDialogue = null;
+  }
   
   void updateDialogue() {
-    // activeCharacter = dialogueLoader.getCurrentChar();
-    characterMood = dialogueLoader.getCurrentMood();
-    characterSprite = activeCharacter.drawSprite();
+    if (dialogueLoader.getProgress() == 1) {
+      stopDialogue();
+      return;
+    }
+
+    character = dialogueLoader.getCurrentChar();
+    characterName = capitalize(dialogueLoader.getCurrentCharName());
+    characterEmotion = dialogueLoader.getCurrentEmotion();
+    characterSprite = character.drawSprite();
     dialogue = dialogueLoader.getCurrentText();
   }
   
   void draw() {
     shape(background);
 
-    // Draw character if available
-    if (activeCharacter != null) drawCharacter();
+    if (character != null) drawCharacter();
 
     drawDialogue();
   }

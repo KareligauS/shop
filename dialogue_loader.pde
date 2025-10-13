@@ -2,6 +2,9 @@ class DialogueLoader {
   JSONObject script;
   JSONArray partArray;
   String currentPart;
+  String oldCharName;
+  Emotion oldEmotion;
+  Character oldChar;
   int index;
 
   DialogueLoader(String path) {
@@ -11,7 +14,6 @@ class DialogueLoader {
   void loadScript(String path) {
     try {
       script = loadJSONObject(path);
-      println("Loaded script: " + path);
     } catch (Exception e) {
       println("Failed to load the dialogue json: " + e);
       script = null;
@@ -45,16 +47,45 @@ class DialogueLoader {
     }
   }
 
-  String getCurrentChar() {
+  Character getCurrentChar() {
     JSONObject e = getEntry(index);
-    if (e == null) return "";
-    return e.hasKey("char") ? e.getString("char") : "";
+    if (e == null) return null;
+    
+    oldChar = e.hasKey("char") ? characters.get(e.getString("char")) : oldChar;
+    return oldChar;
   }
 
-  String getCurrentMood() {
+  String getCurrentCharName() {
     JSONObject e = getEntry(index);
     if (e == null) return "";
-    return e.hasKey("mood") ? e.getString("mood") : "";
+    oldCharName = e.hasKey("char") ? e.getString("char") : oldCharName;
+    return oldCharName;
+  }
+
+  Emotion getCurrentEmotion() {
+    JSONObject e = getEntry(index);
+    if (e == null) return null;
+    
+    String emotionString = e.hasKey("emotion") ? e.getString("emotion") : "";
+
+    switch (emotionString) {
+      case "happy":
+        oldEmotion = Emotion.HAPPY;
+        break;
+      case "sad":
+        oldEmotion = Emotion.SAD;
+        break;
+      case "angry":
+        oldEmotion = Emotion.ANGRY;
+        break;
+      case "neutral":
+        oldEmotion = Emotion.NEUTRAL;
+        break;
+      default:
+        break;
+    }
+
+    return oldEmotion;
   }
 
   String getCurrentText() {
