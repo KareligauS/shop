@@ -1,10 +1,10 @@
 enum ItemState {
-  DEFAULT,
+  INACTIVE,
+  ACTIVE,
   HOVERING,
   PRESSED,
   CLICKED,
-  DRAGGING,
-  INACTIVE
+  DRAGGING
 }
 
 class Item {
@@ -51,7 +51,7 @@ class Item {
    */
   void activate() {
     if (state == ItemState.INACTIVE) {
-      state = ItemState.DEFAULT;
+      state = ItemState.ACTIVE;
       activeItems.add(this);
     }
   }
@@ -71,26 +71,25 @@ class Item {
   }
 
   void draw() {
-    // switch (state) {
-    //   case DEFAULT:
-    //     println("DEFAULT");
-    //     break;
-    //   case HOVERING:
-    //     println("HOVERING");
-    //     break;
-    //   case PRESSED:
-    //     println("PRESSED");
-    //     break;
-    //   case CLICKED:
-    //     println("CLICKED");
-    //     break;
-    //   case DRAGGING:
-    //     println("DRAGGING");
-    //     break;
-    //   case INACTIVE:
-    //     println("INACTIVE");
-    //     break;
-    // }
+    switch (state) {
+      case INACTIVE:
+        break;
+      case ACTIVE:
+        if (isHovering()) state = ItemState.HOVERING;
+        break;
+      case HOVERING:
+        if (!isHovering()) state = ItemState.ACTIVE;
+        break;
+      case PRESSED:
+        break;
+      case CLICKED:
+        state = isHovering() ? ItemState.HOVERING : ItemState.ACTIVE;
+        break;
+      case DRAGGING:
+        break;
+      default:
+        state = ItemState.INACTIVE;
+    }
 
     shape(sprite, location.x, location.y);
   }
