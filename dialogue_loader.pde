@@ -1,17 +1,17 @@
 class DialogueLoader {
-  JSONObject script;
-  JSONArray partArray;
-  String currentPart;
-  String oldCharName;
-  Emotion oldEmotion;
-  Character oldChar;
-  int index;
+  private JSONObject script;
+  private JSONArray partArray;
+  private String currentPart;
+  private String oldCharName;
+  private Emotion oldEmotion;
+  private Character oldChar;
+  private int index;
 
-  DialogueLoader(String path) {
+  public DialogueLoader(String path) {
     loadScript(path);
   }
 
-  void loadScript(String path) {
+  public void loadScript(String path) {
     try {
       script = loadJSONObject(path);
     } catch (Exception e) {
@@ -20,7 +20,7 @@ class DialogueLoader {
     }
   }
 
-  void loadPart(String partName) {
+  public void loadPart(String partName) {
     currentPart = partName;
     if (script == null) {
       partArray = new JSONArray();
@@ -37,7 +37,7 @@ class DialogueLoader {
     index = 0;
   }
 
-  JSONObject getEntry(int idx) {
+  public JSONObject getEntry(int idx) {
     if (partArray == null || idx < 0 || idx >= partArray.size()) return null;
     try {
       return partArray.getJSONObject(idx);
@@ -47,7 +47,7 @@ class DialogueLoader {
     }
   }
 
-  Character getCurrentChar() {
+  public Character getCurrentChar() {
     JSONObject e = getEntry(index);
     if (e == null) return null;
     
@@ -55,14 +55,14 @@ class DialogueLoader {
     return oldChar;
   }
 
-  String getCurrentCharName() {
+  public String getCurrentCharName() {
     JSONObject e = getEntry(index);
     if (e == null) return "";
     oldCharName = e.hasKey("char") ? e.getString("char") : oldCharName;
     return oldCharName;
   }
 
-  Emotion getCurrentEmotion() {
+  public Emotion getCurrentEmotion() {
     JSONObject e = getEntry(index);
     if (e == null) return null;
     
@@ -88,38 +88,39 @@ class DialogueLoader {
     return oldEmotion;
   }
 
-  String getCurrentText() {
+  public String getCurrentText() {
     JSONObject e = getEntry(index);
     if (e == null) return "";
     return e.hasKey("text") ? e.getString("text") : "";
   }
 
-  float getProgress() {
+  public float getProgress() {
     if (partArray == null || partArray.size() == 0) return 0;
     if (partArray.size() == 1) return 1.0;
+    if (index == partArray.size()) return 1.0;
     return index / float((partArray.size()) - 1);
   }
 
-  void next() {
+  public void next() {
     if (partArray == null || partArray.size() == 0) return;
     index = min(index + 1, partArray.size() - 1);
   }
 
-  void previous() {
+  public void previous() {
     if (partArray == null || partArray.size() == 0) return;
     index = max(index - 1, 0);
   }
 
-  void setIndex(int i) {
+  public void setIndex(int i) {
     if (partArray == null) return;
     index = constrain(i, 0, partArray.size() - 1);
   }
 
-  int size() {
+  public int size() {
     return partArray == null ? 0 : partArray.size();
   }
 
-  int getIndex() {
+  public int getIndex() {
     return index;
   }
 }

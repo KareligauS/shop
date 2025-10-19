@@ -6,48 +6,38 @@ enum Emotion {
 }
 
 class Character {
-  String name;
-  PShape sprite;
-  int spriteWidth, spriteHeight;
-  float maxSpriteWidth, maxSpriteHeight;
-  Emotion emotion;
+  private String name;
+  private PShape sprite;
+  private int spriteWidth, spriteHeight;
+  private float maxSpriteWidth, maxSpriteHeight;
+  private Emotion emotion;
 
-  Character(String charName) {
-    name = charName;
+  public Character(String name) {
+    this.name = name;
     
-    emotion = Emotion.NEUTRAL;
-    drawSprite();
+    this.emotion = Emotion.NEUTRAL;
 
-    spriteWidth = 150;
-    spriteHeight = 200;
+    this.spriteWidth = 300 - 2*20; // activeDialogue.charBackWidth - 2*activeDialogue.padding
+    this.spriteHeight = spriteWidth;
 
     characters.put(name, this);
   }
 
-  PShape drawSprite() {
-    PShape sprite = createShape(GROUP);
-
-    switch (emotion) {
-      case HAPPY:
-      case SAD:
-      case ANGRY:
-      case NEUTRAL:
-        PShape body = createShape(RECT, 0, 0, 150, 200);
-        PShape head = createShape(ELLIPSE, 75, 0, 175, 200);
-
-        sprite.addChild(body);
-        sprite.addChild(head);
-        break;
-    }
-
-    return sprite;
-  }
-
-  void setEmotion(Emotion newEmotion) {
+  public void setEmotion(Emotion newEmotion) {
     emotion = newEmotion;
   }
 
-  void updateSprite() {
-    sprite = drawSprite();
+  public void updateSprite() {
+    String path = "./sprites/characters/" + name + "/" + emotion.toString().toLowerCase() + ".svg";
+
+    sprite = loadShape(path);
+
+    if (sprite == null) {
+      println("Error: Could not load sprite from " + path);
+    }
+  }
+
+  public PShape getSprite() {
+    return sprite;
   }
 }

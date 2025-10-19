@@ -8,31 +8,21 @@ enum ButtonState {
 
 class Button {
   // Position and size
-  PVector location;
-  float width, height;
+  private PVector location;
+  private float buttonWidth, buttonHeight;
 
   // Appearance
-  float cornerRadius, padding, textSize;
-  IntDict strokeColor, backColor, textColor;
-  PFont font;
-  String text;
-  PShape sprite;
+  private float borderRadius, padding, textSize;
+  private IntDict strokeColor, backColor, textColor;
+  private PFont font;
+  private String text;
+  private PShape sprite;
 
   // State
-  ButtonState state;
+  private ButtonState state;
+  private Runnable action;
 
-  private boolean isHovering() {
-    boolean isInWidthRange = mouseX >= location.x - width / 2 && mouseX <= location.x + width / 2;
-    boolean isInHeightRange = mouseY >= location.y - height / 2 && mouseY <= location.y + height / 2;
-
-    return (isInWidthRange && isInHeightRange);
-  }
-
-  ButtonState getState() {
-    return state;
-  }
-
-    /**
+  /**
    * Initializes button properties: location, size, radius, text, and colors.
    *
    * @param midX Center x-coordinate.
@@ -42,28 +32,40 @@ class Button {
    * @param radius Corner radius.
    * @param buttonText Text displayed in the button.
    */
-  Button(float midX, float midY, float buttonWidth, float buttonHeight, float radius, String buttonText) {
+  public Button(float midX, float midY, int width, int height, int borderRadius, String text, Runnable action) {
     // Position and size
-    location = new PVector(midX, midY);
-    width = buttonWidth;
-    height = buttonHeight;
+    this.location = new PVector(midX, midY);
+    this.buttonWidth = width;
+    this.buttonHeight = height;
 
     // Appearance
     setDefaultColors();
-    cornerRadius = radius;
-    padding = 10;
-    textSize = 64;
-    text = buttonText;
-    sprite = createButtonObject();
+    this.borderRadius = borderRadius;
+    this.padding = 10;
+    this.textSize = 64;
+    this.text = text;
+    this.sprite = createButtonObject();
 
     // State
-    state = ButtonState.INACTIVE;
+    this.state = ButtonState.INACTIVE;
+    this.action = action;
   }
 
-  PShape createButtonObject() {
+  private boolean isHovering() {
+    boolean isInWidthRange = mouseX >= location.x - buttonWidth / 2 && mouseX <= location.x + buttonWidth / 2;
+    boolean isInHeightRange = mouseY >= location.y - buttonHeight / 2 && mouseY <= location.y + buttonHeight / 2;
+
+    return (isInWidthRange && isInHeightRange);
+  }
+
+  public ButtonState getState() {
+    return state;
+  }
+
+  private PShape createButtonObject() {
     pushStyle();
     rectMode(CENTER);
-    PShape button = createShape(RECT, location.x, location.y, width, height, cornerRadius);
+    PShape button = createShape(RECT, location.x, location.y, buttonWidth, buttonHeight, borderRadius);
     button.setFill(backColor.get("current"));
     button.setStroke(strokeColor.get("current"));
     popStyle();
@@ -83,7 +85,7 @@ class Button {
       textSize(textSize);
 
       // Reduce text size until it fits within the width
-      while (textWidth(text) + (2 * padding) > width && textSize > 0) {
+      while (textWidth(text) + (2 * padding) > buttonWidth && textSize > 0) {
         textSize -= 1;
         textSize(textSize);
       }
@@ -99,18 +101,19 @@ class Button {
    *
    * @param bText Text string to render.
    */
-  void setText(String bText) {
+  public void setText(String bText) {
     text = bText;
     renderText();
   }
 
-  void buttonPressed() {
+  public void buttonPressed() {
     if (state == ButtonState.HOVERING) state = ButtonState.PRESSED;
   }
 
-  void buttonReleased() {
+  public void buttonReleased() {
     if (state == ButtonState.PRESSED && isHovering()) {
       state = ButtonState.CLICKED;
+      action.run();
       return;
     }
     state = ButtonState.ACTIVE;
@@ -119,7 +122,7 @@ class Button {
   /**
    * Activates the button and adds it to activeButtons.
    */
-  void activate() {
+  public void activate() {
     if (state == ButtonState.INACTIVE) {
       state = ButtonState.ACTIVE;
       activeButtons.add(this);
@@ -129,7 +132,7 @@ class Button {
   /**
    * Deactivates the button and removes it from activeButtons.
    */
-  void deactivate() {
+  public void deactivate() {
     state = ButtonState.INACTIVE;
     activeButtons.remove(this);
   }
@@ -152,7 +155,7 @@ class Button {
    * @param colors Array: [default, hovering, clicked].
    * @param dict Dictionary to store color states.
    */
-  void setColorStates(color[] colors, IntDict dict) {
+  public void setColorStates(color[] colors, IntDict dict) {
     dict.set("current", colors[0]);
     dict.set("default", colors[0]);
     dict.set("hovering", colors[1]);
@@ -166,7 +169,7 @@ class Button {
    * @param backColors Array: [default, hovering, clicked] for background.
    * @param textColors Array: [default, hovering, clicked] for text.
    */
-  void setColors(color[] strokeColors, color[] backColors, color[] textColors) {
+  public void setColors(color[] strokeColors, color[] backColors, color[] textColors) {
     strokeColor = new IntDict();
     setColorStates(strokeColors, strokeColor);
 
@@ -191,7 +194,7 @@ class Button {
   /**
    * Renders the button, updating appearance based on user interaction.
    */
-  void draw() {
+  public void draw() {
     switch (state) {
       case INACTIVE:
         break;

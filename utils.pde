@@ -3,18 +3,6 @@ String capitalize(String str) {
   return str.substring(0, 1).toUpperCase() + str.substring(1);
 }
 
-void drawStartMenu() {
-  pushStyle();
-  rectMode(CENTER);
-  textAlign(CENTER, CENTER);
-  fill(0);
-  textSize(100);
-  text("GAME TITLE", 2*width/3, height/2-30);
-  textSize(50);
-  text("subtitle", 2*width/3, height/2+30);
-  popStyle();
-}
-
 void setCursor() {
   if (activeButtons.stream().anyMatch(Button::isHovering)) {
     cursor(HAND);
@@ -30,15 +18,24 @@ void pauseMenuOpen() {
   exitButton.activate();
 }
 
+void pauseMenudraw() { 
+  pushStyle();
+  fill(220);
+  rect(0, 0, width, height);
+  rectMode(CENTER);
+  textAlign(CENTER, CENTER);
+  fill(0);
+  textSize(100);
+  text("GAME TITLE", 2*width/3, height/2-30);
+  textSize(50);
+  text("subtitle", 2*width/3, height/2+30);
+  popStyle();
+}
+
 void pauseMenuClose() {
-  startDialogue.startDialogue();
   startButton.deactivate();
   optionsButton.deactivate();
   exitButton.deactivate();
 
   gameState = GameState.RUNNING;
-}
-
-void exitGame() {
-  exit();
 }

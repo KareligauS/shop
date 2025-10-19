@@ -1,42 +1,42 @@
 class DialogueOverlay {
   // Look
-  color bgColor, textColor;
-  PShape background;
-  int margin, padding;
-  int charBackWidth, chatBackHeight;
-  int textBackWidth, textBackHeight;
+  private color bgColor, textColor;
+  private PShape background;
+  private int margin, padding;
+  private int charBackWidth, chatBackHeight;
+  private int textBackWidth, textBackHeight;
 
   // Dialogue
-  PVector dialogueLoc;
+  private PVector dialogueLoc;
 
   // Character
-  Character character;
-  PShape characterSprite;
-  String characterName;
-  Emotion characterEmotion;
-  String dialogue;
+  private Character character;
+  private PShape characterSprite;
+  private String characterName;
+  private Emotion characterEmotion;
+  private String dialogue;
 
-  DialogueOverlay(String dialoguePart) {
+  public DialogueOverlay(String dialoguePart) {
     dialogueLoader.loadPart(dialoguePart);
 
-    bgColor = 30;
-    textColor= 255;
+    this.bgColor = 30;
+    this.textColor= 255;
 
-    margin = 50;
-    padding = 20;
-    charBackWidth = 300;
-    chatBackHeight = 350;
-    textBackWidth = width - charBackWidth - 2*margin;
-    textBackHeight = (3*chatBackHeight)/4;
+    this.margin = 50;
+    this.padding = 20;
+    this.charBackWidth = 300;
+    this.chatBackHeight = 350;
+    this.textBackWidth = width - charBackWidth - 2*margin;
+    this.textBackHeight = (3*chatBackHeight)/4;
     
-    background = drawBackground();
+    this.background = drawBackground();
 
-    dialogueLoc = new PVector(margin + charBackWidth + padding, height - textBackHeight - margin);
+    this.dialogueLoc = new PVector(margin + charBackWidth + padding, height - textBackHeight - margin);
 
     updateDialogue();
   }
 
-  PShape drawBackground() {
+  private PShape drawBackground() {
     PShape back = createShape(GROUP);
 
     PVector charBackLoc = new PVector(margin, height-chatBackHeight-margin);
@@ -54,18 +54,18 @@ class DialogueOverlay {
     return back;
   }
 
-  void drawCharacter() {
+  private void drawCharacter() {
     character.setEmotion(characterEmotion);
     character.updateSprite();
-    characterSprite = character.drawSprite();
+    characterSprite = character.getSprite();
 
     PVector characterSpriteLoc = new PVector((charBackWidth/2)+margin-(character.spriteWidth/2), 
                                              height-margin-character.spriteHeight);
 
-    shape(characterSprite, characterSpriteLoc.x, characterSpriteLoc.y);
+    shape(characterSprite, characterSpriteLoc.x, characterSpriteLoc.y, character.spriteWidth, character.spriteHeight);
   }
 
-  void drawDialogue() {
+  private void drawDialogue() {
     pushStyle();
     textAlign(LEFT, TOP);
     
@@ -79,15 +79,15 @@ class DialogueOverlay {
     popStyle();
   }
 
-  void startDialogue() {
+  public void startDialogue() {
     activeDialogue = this;
   }
 
-  void stopDialogue() {
+  public void stopDialogue() {
     activeDialogue = null;
   }
   
-  void updateDialogue() {
+  public void updateDialogue() {
     if (dialogueLoader.getProgress() == 1) {
       stopDialogue();
       return;
@@ -96,11 +96,11 @@ class DialogueOverlay {
     character = dialogueLoader.getCurrentChar();
     characterName = capitalize(dialogueLoader.getCurrentCharName());
     characterEmotion = dialogueLoader.getCurrentEmotion();
-    characterSprite = character.drawSprite();
+    characterSprite = character.getSprite();
     dialogue = dialogueLoader.getCurrentText();
   }
   
-  void draw() {
+  public void draw() {
     shape(background);
 
     if (character != null) drawCharacter();
@@ -108,12 +108,12 @@ class DialogueOverlay {
     drawDialogue();
   }
 
-  void nextDialogue() {
+  public void nextDialogue() {
     dialogueLoader.next();
     updateDialogue();
   }
 
-  void previousDialogue() {
+  public void previousDialogue() {
     dialogueLoader.previous();
     updateDialogue();
   }

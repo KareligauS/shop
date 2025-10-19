@@ -8,26 +8,26 @@ enum ItemState {
 }
 
 class Item {
-  PVector location;
-  PShape sprite;
+  private PVector location;
+  private PShape sprite;
 
-  boolean isDragable;
-  ItemState state;
+  private boolean isDragable;
+  private ItemState state;
 
-  String name;
+  private String name;
 
-  float width, height;
+  private float width, height;
 
   Item(float posX, float posY) {
-    location = new PVector(posX, posY);
+    this.location = new PVector(posX, posY);
     
-    state = ItemState.INACTIVE;
+    this.state = ItemState.INACTIVE;
     activate();
 
-    sprite = drawSprite();
+    this.sprite = drawSprite();
   }
 
-  ItemState getState() {
+  public ItemState getState() {
     return state;
   }
 
@@ -38,18 +38,18 @@ class Item {
     return (isInWidthRange && isInHeightRange);
   }
 
-    void buttonPressed() {
+  public void buttonPressed() {
     if (state == ItemState.HOVERING) state = ItemState.PRESSED;
   }
 
-  void buttonReleased() {
+  public void buttonReleased() {
     if (state == ItemState.HOVERING) state = ItemState.CLICKED;
   }
 
   /**
    * Activates the button and adds it to activeItems.
    */
-  void activate() {
+  public void activate() {
     if (state == ItemState.INACTIVE) {
       state = ItemState.ACTIVE;
       activeItems.add(this);
@@ -59,18 +59,20 @@ class Item {
   /**
    * Deactivates the item and removes it from activeItems.
    */
-  void deactivate() {
+  public void deactivate() {
     if (state != ItemState.INACTIVE) {
       state = ItemState.INACTIVE;
       activeItems.remove(this);
     }
   }
 
-  PShape drawSprite() {
-    return createShape(RECT, 0, 0, width, height);
+  private PShape drawSprite() {
+    PShape sprite = createShape(RECT, 0, 0, width, height);
+    sprite.setFill(0);
+    return sprite;
   }
 
-  void draw() {
+  public void draw() {
     switch (state) {
       case INACTIVE:
         break;
@@ -89,6 +91,7 @@ class Item {
         break;
       default:
         state = ItemState.INACTIVE;
+        break;
     }
 
     shape(sprite, location.x, location.y);

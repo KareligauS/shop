@@ -16,17 +16,15 @@ Character testChar, micah;
 HashMap<String, Character> characters = new HashMap<>();
 
 enum GameState {
-  STARING,
-  STARTED,
   PAUSED,
   RUNNING
 }
 GameState gameState;
 
 void setupButtons() {
-  startButton = new Button(width/4, height/2-150, 400, 100, 0, "Start Game");
-  optionsButton = new Button(width/4, height/2, 400, 100, 0, "Options");
-  exitButton = new Button(width/4, height/2+150, 400, 100, 0, "Exit");
+  startButton = new Button(width / 4, height / 2 - 150, 400, 100, 10, "Start Game", () -> pauseMenuClose());
+  optionsButton = new Button(width / 4, height / 2, 400, 100, 10, "Options", () -> exit());
+  exitButton = new Button(width / 4, height / 2 + 150, 400, 100, 10, "Exit", () -> exit());
 }
 
 void setupDialogue() {
@@ -39,8 +37,6 @@ void setup() {
   // fullScreen();
   size(1500, 1000);
 
-  gameState = GameState.STARING;
-
   testChar = new Character("testChar");
   micah = new Character("micah");
 
@@ -49,6 +45,8 @@ void setup() {
   setupButtons();
   setupDialogue();
 
+  startDialogue.startDialogue();
+
   pauseMenuOpen();
 }
 
@@ -56,20 +54,15 @@ void draw() {
   background(220);
 
   switch (gameState) {
-    case STARTED:
-      break;
     case PAUSED:
-      drawStartMenu();
+      pauseMenudraw();
       break;
     case RUNNING:
+      if (activeDialogue != null) activeDialogue.draw();
       break;
     default:
       gameState = GameState.PAUSED;
       break;
-  }
-
-  if (activeDialogue != null) {
-    activeDialogue.draw();
   }
 
   activeButtons.stream()
@@ -77,6 +70,7 @@ void draw() {
     .forEach(Button::deactivate);
   
   activeButtons.forEach(Button::draw);
+
   setCursor();
 
   activeItems.stream()
@@ -98,12 +92,12 @@ void mousePressed() {
 }
 
 void mouseReleased() {
-  activeButtons.forEach(Button::buttonReleased);
-  activeItems.forEach(Item::buttonReleased);
+  // activeButtons.forEach(Button::buttonReleased);
+  startButton.buttonReleased();
+  optionsButton.buttonReleased();
+  exitButton.buttonReleased();
 
-  if (startButton.getState() == ButtonState.CLICKED) pauseMenuClose();
-  if (optionsButton.getState() == ButtonState.CLICKED) return;
-  if (exitButton.getState() == ButtonState.CLICKED) exit();
+  activeItems.forEach(Item::buttonReleased);
 }
 
 void keyPressed() {
