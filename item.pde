@@ -14,15 +14,17 @@ class Item {
   private boolean isDragable;
   private ItemState state;
 
-  private String name;
-
   private float width, height;
 
-  Item(float posX, float posY) {
+  Item(float posX, float posY, boolean isDragable) {
     this.location = new PVector(posX, posY);
     
     this.state = ItemState.INACTIVE;
     activate();
+
+    this.isDragable = isDragable;
+
+    width = height = 100;
 
     this.sprite = drawSprite();
   }
@@ -32,18 +34,20 @@ class Item {
   }
 
   private boolean isHovering() {
-    boolean isInWidthRange = mouseX >= location.x - width / 2 && mouseX <= location.x + width / 2;
-    boolean isInHeightRange = mouseY >= location.y - height / 2 && mouseY <= location.y + height / 2;
+    boolean isInWidthRange = mouseX >= location.x && mouseX <= location.x + width;
+    boolean isInHeightRange = mouseY >= location.y && mouseY <= location.y + height;
 
     return (isInWidthRange && isInHeightRange);
   }
 
   public void buttonPressed() {
-    if (state == ItemState.HOVERING) state = ItemState.PRESSED;
+    if (state == ItemState.HOVERING) {
+      state = isDragable ? ItemState.DRAGGING : ItemState.CLICKED;
+    }
   }
 
   public void buttonReleased() {
-    if (state == ItemState.HOVERING) state = ItemState.CLICKED;
+    state = state == ItemState.HOVERING ? ItemState.HOVERING : ItemState.ACTIVE;
   }
 
   /**
@@ -69,7 +73,13 @@ class Item {
   private PShape drawSprite() {
     PShape sprite = createShape(RECT, 0, 0, width, height);
     sprite.setFill(0);
+
     return sprite;
+  }
+
+  public void mouseDrag(float mouseX, float mouseY) {
+    location.x = mouseX - width/2;
+    location.y = mouseY - height/2;
   }
 
   public void draw() {

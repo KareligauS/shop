@@ -18,7 +18,7 @@ void pauseMenuOpen() {
   exitButton.activate();
 }
 
-void pauseMenudraw() { 
+void pauseMenuDraw() { 
   pushStyle();
   fill(220);
   rect(0, 0, width, height);
@@ -38,4 +38,34 @@ void pauseMenuClose() {
   exitButton.deactivate();
 
   gameState = GameState.RUNNING;
+}
+
+void setupButtons() {
+  startButton = new Button(width / 4, height / 2 - 150, 400, 100, 10, "Start Game", () -> pauseMenuClose());
+  optionsButton = new Button(width / 4, height / 2, 400, 100, 10, "Options", () -> exit());
+  exitButton = new Button(width / 4, height / 2 + 150, 400, 100, 10, "Exit", () -> exit());
+}
+
+void setupDialogue() {
+  dialogueLoader = new DialogueLoader("dialogue.json");
+  
+  startDialogue = new DialogueOverlay("intro");
+}
+
+void drawActiveButtons() {
+  activeButtons.stream()
+    .filter(button -> button.getState() == ButtonState.INACTIVE)
+    .forEach(Button::deactivate);
+  
+  activeButtons.forEach(Button::draw);
+
+  setCursor();
+}
+
+void drawActiveItems() {
+  activeItems.stream()
+    .filter(item -> item.getState() == ItemState.INACTIVE)
+    .forEach(Item::deactivate);
+
+  activeItems.forEach(Item::draw);
 }

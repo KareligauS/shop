@@ -13,7 +13,7 @@ class DialogueLoader {
 
   public void loadScript(String path) {
     try {
-      script = loadJSONObject(path);
+      this.script = loadJSONObject(path);
     } catch (Exception e) {
       println("Failed to load the dialogue json: " + e);
       script = null;
@@ -21,7 +21,7 @@ class DialogueLoader {
   }
 
   public void loadPart(String partName) {
-    currentPart = partName;
+    this.currentPart = partName;
     if (script == null) {
       partArray = new JSONArray();
       return;
@@ -94,11 +94,19 @@ class DialogueLoader {
     return e.hasKey("text") ? e.getString("text") : "";
   }
 
+  public String getCurrentPart() {
+    return currentPart;
+  }
+
   public float getProgress() {
     if (partArray == null || partArray.size() == 0) return 0;
     if (partArray.size() == 1) return 1.0;
     if (index == partArray.size()) return 1.0;
     return index / float((partArray.size()) - 1);
+  }
+
+  public int getIndex() {
+    return index;
   }
 
   public void next() {
@@ -113,14 +121,10 @@ class DialogueLoader {
 
   public void setIndex(int i) {
     if (partArray == null) return;
-    index = constrain(i, 0, partArray.size() - 1);
+    this.index = constrain(i, 0, partArray.size() - 1);
   }
 
   public int size() {
     return partArray == null ? 0 : partArray.size();
-  }
-
-  public int getIndex() {
-    return index;
   }
 }

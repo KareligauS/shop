@@ -23,8 +23,8 @@ class Character {
     characters.put(name, this);
   }
 
-  public void setEmotion(Emotion newEmotion) {
-    emotion = newEmotion;
+  public void setEmotion(Emotion emotion) {
+    this.emotion = emotion;
   }
 
   public void updateSprite() {

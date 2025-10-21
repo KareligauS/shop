@@ -9,7 +9,7 @@ DialogueLoader dialogueLoader;
 Button startButton, optionsButton, exitButton;
 ArrayList<Button> activeButtons = new ArrayList<Button>();
 
-Item testItem;
+Item testItem, bestItem;
 ArrayList<Item> activeItems = new ArrayList<Item>();
 
 Character testChar, micah;
@@ -21,18 +21,6 @@ enum GameState {
 }
 GameState gameState;
 
-void setupButtons() {
-  startButton = new Button(width / 4, height / 2 - 150, 400, 100, 10, "Start Game", () -> pauseMenuClose());
-  optionsButton = new Button(width / 4, height / 2, 400, 100, 10, "Options", () -> exit());
-  exitButton = new Button(width / 4, height / 2 + 150, 400, 100, 10, "Exit", () -> exit());
-}
-
-void setupDialogue() {
-  dialogueLoader = new DialogueLoader("dialogue.json");
-  
-  startDialogue = new DialogueOverlay("intro");
-}
-
 void setup() {
   // fullScreen();
   size(1500, 1000);
@@ -40,7 +28,8 @@ void setup() {
   testChar = new Character("testChar");
   micah = new Character("micah");
 
-  testItem = new Item(0, 0);
+  testItem = new Item(100, 100, true);
+  bestItem = new Item(300, 200, true);
 
   setupButtons();
   setupDialogue();
@@ -55,40 +44,47 @@ void draw() {
 
   switch (gameState) {
     case PAUSED:
-      pauseMenudraw();
+      pauseMenuDraw();
+      drawActiveButtons();
       break;
     case RUNNING:
       if (activeDialogue != null) activeDialogue.draw();
+      drawActiveButtons();
+      drawActiveItems();
       break;
     default:
       gameState = GameState.PAUSED;
       break;
   }
-
-  activeButtons.stream()
-    .filter(button -> button.getState() == ButtonState.INACTIVE)
-    .forEach(Button::deactivate);
-  
-  activeButtons.forEach(Button::draw);
-
-  setCursor();
-
-  activeItems.stream()
-    .filter(item -> item.getState() == ItemState.INACTIVE)
-    .forEach(Item::deactivate);
-
-  activeItems.forEach(Item::draw);
 }
 
 void mousePressed() {
-  if (gameState != GameState.PAUSED && activeDialogue != null) {
-    activeDialogue.nextDialogue();
-  }
-
   startButton.buttonPressed();
 
   activeButtons.forEach(Button::buttonPressed);
-  activeItems.forEach(Item::buttonPressed);
+
+  switch (gameState) {
+  case PAUSED:
+    break;
+  case RUNNING:
+    if (activeDialogue != null) activeDialogue.nextDialogue();
+    activeItems.stream()
+      .filter(item -> item.getState() == ItemState.HOVERING)
+      .forEach(Item::buttonPressed);
+    break;
+  }
+}
+
+void mouseDragged() {
+  switch (gameState) {
+  case PAUSED:
+    break;
+  case RUNNING:
+    activeItems.stream()
+      .filter(item -> item.getState() == ItemState.DRAGGING)
+      .forEach(item -> item.mouseDrag(mouseX, mouseY));
+    break;
+  }
 }
 
 void mouseReleased() {
