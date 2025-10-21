@@ -81,8 +81,10 @@ void mouseDragged() {
     break;
   case RUNNING:
     activeItems.stream()
-      .filter(item -> item.getState() == ItemState.DRAGGING)
-      .forEach(item -> item.mouseDrag(mouseX, mouseY));
+      .filter(item -> item.getIsDragable() && item.getState() == ItemState.DRAGGING)
+      .findFirst()
+      .ifPresent(item -> item.mouseDrag(mouseX, mouseY));
+
     break;
   }
 }

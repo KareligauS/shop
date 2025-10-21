@@ -68,6 +68,7 @@ class DialogueOverlay {
   private void drawDialogue() {
     pushStyle();
     textAlign(LEFT, TOP);
+    fill(textColor);
     
     // Header
     textSize(30);

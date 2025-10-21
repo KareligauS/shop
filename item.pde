@@ -33,6 +33,10 @@ class Item {
     return state;
   }
 
+  public boolean getIsDragable() {
+    return isDragable;
+  }
+
   private boolean isHovering() {
     boolean isInWidthRange = mouseX >= location.x && mouseX <= location.x + width;
     boolean isInHeightRange = mouseY >= location.y && mouseY <= location.y + height;
