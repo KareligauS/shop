@@ -9,11 +9,11 @@ DialogueLoader dialogueLoader;
 Button startButton, optionsButton, exitButton;
 ArrayList<Button> activeButtons = new ArrayList<Button>();
 
-Item testItem, bestItem;
-ArrayList<Item> activeItems = new ArrayList<Item>();
-
 Character testChar, micah;
 HashMap<String, Character> characters = new HashMap<>();
+
+Item testItem, bestItem;
+ArrayList<Item> activeItems = new ArrayList<Item>();
 
 enum GameState {
   PAUSED,
@@ -25,14 +25,10 @@ void setup() {
   // fullScreen();
   size(1500, 1000);
 
-  testChar = new Character("testChar");
-  micah = new Character("micah");
-
-  testItem = new Item(100, 100, true);
-  bestItem = new Item(300, 200, true);
-
   setupButtons();
+  setupCharacters();
   setupDialogue();
+  setupItems();
 
   startDialogue.startDialogue();
 
@@ -84,7 +80,6 @@ void mouseDragged() {
       .filter(item -> item.getIsDragable() && item.getState() == ItemState.DRAGGING)
       .findFirst()
       .ifPresent(item -> item.mouseDrag(mouseX, mouseY));
-
     break;
   }
 }

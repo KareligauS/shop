@@ -46,10 +46,20 @@ void setupButtons() {
   exitButton = new Button(width / 4, height / 2 + 150, 400, 100, 10, "Exit", () -> exit());
 }
 
+void setupCharacters() {
+  testChar = new Character("testChar");
+  micah = new Character("micah");
+}
+
 void setupDialogue() {
   dialogueLoader = new DialogueLoader("dialogue.json");
   
   startDialogue = new DialogueOverlay("intro");
+}
+
+void setupItems() {
+  testItem = new Item(100, 100, true);
+  bestItem = new Item(300, 200, true);
 }
 
 void drawActiveButtons() {

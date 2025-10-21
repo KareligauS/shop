@@ -14,7 +14,7 @@ class Item {
   private boolean isDragable;
   private ItemState state;
 
-  private float width, height;
+  private float spriteWidth, spriteHeight;
 
   Item(float posX, float posY, boolean isDragable) {
     this.location = new PVector(posX, posY);
@@ -24,7 +24,7 @@ class Item {
 
     this.isDragable = isDragable;
 
-    width = height = 100;
+    this.spriteWidth = this.spriteHeight = 100;
 
     this.sprite = drawSprite();
   }
@@ -38,8 +38,8 @@ class Item {
   }
 
   private boolean isHovering() {
-    boolean isInWidthRange = mouseX >= location.x && mouseX <= location.x + width;
-    boolean isInHeightRange = mouseY >= location.y && mouseY <= location.y + height;
+    boolean isInWidthRange = mouseX >= location.x && mouseX <= location.x + spriteWidth;
+    boolean isInHeightRange = mouseY >= location.y && mouseY <= location.y + spriteHeight;
 
     return (isInWidthRange && isInHeightRange);
   }
@@ -75,15 +75,15 @@ class Item {
   }
 
   private PShape drawSprite() {
-    PShape sprite = createShape(RECT, 0, 0, width, height);
+    PShape sprite = createShape(RECT, 0, 0, spriteWidth, spriteHeight);
     sprite.setFill(0);
 
     return sprite;
   }
 
   public void mouseDrag(float mouseX, float mouseY) {
-    location.x = mouseX - width/2;
-    location.y = mouseY - height/2;
+    location.x = constrain(mouseX - spriteWidth/2, 0, width-spriteWidth);
+    location.y = constrain(mouseY - spriteHeight/2, 0, height-spriteHeight);
   }
 
   public void draw() {
