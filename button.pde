@@ -116,7 +116,7 @@ class Button {
       action.run();
       return;
     }
-    state = ButtonState.ACTIVE;
+    if (state != ButtonState.INACTIVE) state = ButtonState.ACTIVE;
   }
 
   /**

@@ -17,7 +17,7 @@ ArrayList<Item> activeItems = new ArrayList<Item>();
 
 enum GameState {
   PAUSED,
-  RUNNING
+  RUNNING,
 }
 GameState gameState;
 
@@ -44,9 +44,9 @@ void draw() {
       drawActiveButtons();
       break;
     case RUNNING:
+      drawActiveItems();
       if (activeDialogue != null) activeDialogue.draw();
       drawActiveButtons();
-      drawActiveItems();
       break;
     default:
       gameState = GameState.PAUSED;
@@ -63,10 +63,13 @@ void mousePressed() {
   case PAUSED:
     break;
   case RUNNING:
-    if (activeDialogue != null) activeDialogue.nextDialogue();
-    activeItems.stream()
-      .filter(item -> item.getState() == ItemState.HOVERING)
-      .forEach(Item::buttonPressed);
+    if (activeDialogue != null) {
+      activeDialogue.nextDialogue();
+    } else {
+      activeItems.stream()
+        .filter(item -> item.getState() == ItemState.HOVERING)
+        .forEach(Item::buttonPressed);
+    }
     break;
   }
 }
@@ -77,7 +80,7 @@ void mouseDragged() {
     break;
   case RUNNING:
     activeItems.stream()
-      .filter(item -> item.getIsDragable() && item.getState() == ItemState.DRAGGING)
+      .filter(item -> item.isDragable() && item.getState() == ItemState.DRAGGING)
       .findFirst()
       .ifPresent(item -> item.mouseDrag(mouseX, mouseY));
     break;

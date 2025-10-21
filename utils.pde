@@ -58,8 +58,8 @@ void setupDialogue() {
 }
 
 void setupItems() {
-  testItem = new Item(100, 100, true);
-  bestItem = new Item(300, 200, true);
+  testItem = new Item(random(width), random(height), true, 100, 100);
+  bestItem = new Item(random(width), random(height), true, 200, 200);
 }
 
 void drawActiveButtons() {

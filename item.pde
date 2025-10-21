@@ -9,6 +9,7 @@ enum ItemState {
 
 class Item {
   private PVector location;
+  private PVector destination;
   private PShape sprite;
 
   private boolean isDragable;
@@ -29,11 +30,16 @@ class Item {
     this.sprite = drawSprite();
   }
 
+  Item(float posX, float posY, boolean isDragable, float destinationX, float destinationY) {
+    this(posX, posY, isDragable);
+    this.destination = new PVector(destinationX, destinationY);
+  }
+
   public ItemState getState() {
     return state;
   }
 
-  public boolean getIsDragable() {
+  public boolean isDragable() {
     return isDragable;
   }
 
@@ -44,6 +50,14 @@ class Item {
     return (isInWidthRange && isInHeightRange);
   }
 
+  private void snapToDestination() {
+    if (destination == null) return;
+
+    if (location.dist(destination) < 50) {
+      location = destination.copy();
+    }
+  }
+
   public void buttonPressed() {
     if (state == ItemState.HOVERING) {
       state = isDragable ? ItemState.DRAGGING : ItemState.CLICKED;
@@ -51,7 +65,8 @@ class Item {
   }
 
   public void buttonReleased() {
-    state = state == ItemState.HOVERING ? ItemState.HOVERING : ItemState.ACTIVE;
+    snapToDestination();
+    if (state != ItemState.HOVERING) state = ItemState.ACTIVE;
   }
 
   /**
