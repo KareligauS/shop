@@ -1,5 +1,9 @@
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
+import java.text.MessageFormat;
+
+DecorationManager decorationManager = new DecorationManager("./sprites/decorations/");
 
 DialogueOverlay startDialogue, endDialogue;
 DialogueOverlay activeDialogue;
@@ -23,7 +27,7 @@ enum GameState {
 GameState gameState;
 
 void setup() {
-  // fullScreen();
+  fullScreen();
   size(1500, 1000);
 
   setupButtons();
@@ -34,10 +38,14 @@ void setup() {
   startDialogue.startDialogue();
 
   pauseMenuOpen();
+
+  decorationManager.init();
 }
 
 void draw() {
   background(220);
+
+  decorationManager.displayAll(true, true);
 
   switch (gameState) {
     case PAUSED:
