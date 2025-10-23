@@ -1,7 +1,7 @@
 import java.util.Arrays;
 import java.util.HashMap;
 
-DialogueOverlay startDialogue;
+DialogueOverlay startDialogue, endDialogue;
 DialogueOverlay activeDialogue;
 
 DialogueLoader dialogueLoader;
@@ -12,12 +12,13 @@ ArrayList<Button> activeButtons = new ArrayList<Button>();
 Character testChar, micah;
 HashMap<String, Character> characters = new HashMap<>();
 
-Item testItem, bestItem;
+Item testItem, keyItem;
 ArrayList<Item> activeItems = new ArrayList<Item>();
 
 enum GameState {
   PAUSED,
   RUNNING,
+  FINNISHED
 }
 GameState gameState;
 
@@ -47,6 +48,16 @@ void draw() {
       drawActiveItems();
       if (activeDialogue != null) activeDialogue.draw();
       drawActiveButtons();
+
+      if (testItem.isOnDestination() && keyItem.isOnDestination()) {
+        gameState = GameState.FINNISHED;
+        endDialogue.startDialogue();
+      }
+      break;
+    case FINNISHED:
+      drawActiveItems();
+      if (activeDialogue != null) activeDialogue.draw();
+      drawActiveButtons();
       break;
     default:
       gameState = GameState.PAUSED;
@@ -55,14 +66,11 @@ void draw() {
 }
 
 void mousePressed() {
-  startButton.buttonPressed();
-
   activeButtons.forEach(Button::buttonPressed);
 
   switch (gameState) {
-  case PAUSED:
-    break;
   case RUNNING:
+  case FINNISHED:
     if (activeDialogue != null) {
       activeDialogue.nextDialogue();
     } else {
@@ -71,19 +79,19 @@ void mousePressed() {
         .forEach(Item::buttonPressed);
     }
     break;
+  default: break;
   }
 }
 
 void mouseDragged() {
   switch (gameState) {
-  case PAUSED:
-    break;
   case RUNNING:
     activeItems.stream()
       .filter(item -> item.isDragable() && item.getState() == ItemState.DRAGGING)
       .findFirst()
       .ifPresent(item -> item.mouseDrag(mouseX, mouseY));
     break;
+  default: break;
   }
 }
 

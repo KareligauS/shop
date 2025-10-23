@@ -8,6 +8,7 @@ enum ItemState {
 }
 
 class Item {
+  private String name;
   private PVector location;
   private PVector destination;
   private PShape sprite;
@@ -17,21 +18,21 @@ class Item {
 
   private float spriteWidth, spriteHeight;
 
-  Item(float posX, float posY, boolean isDragable) {
+  Item(float posX, float posY, String name, boolean isDragable) {
     this.location = new PVector(posX, posY);
-    
+
+    this.name = name;
+
     this.state = ItemState.INACTIVE;
     activate();
 
     this.isDragable = isDragable;
-
     this.spriteWidth = this.spriteHeight = 100;
-
-    this.sprite = drawSprite();
+    updateSprite();
   }
 
-  Item(float posX, float posY, boolean isDragable, float destinationX, float destinationY) {
-    this(posX, posY, isDragable);
+  Item(float posX, float posY, String name, boolean isDragable, float destinationX, float destinationY) {
+    this(posX, posY, name, isDragable);
     this.destination = new PVector(destinationX, destinationY);
   }
 
@@ -41,6 +42,11 @@ class Item {
 
   public boolean isDragable() {
     return isDragable;
+  }
+
+  public boolean isOnDestination() {
+    if (state == ItemState.DRAGGING) return false;
+    return location.equals(destination);
   }
 
   private boolean isHovering() {
@@ -89,11 +95,14 @@ class Item {
     }
   }
 
-  private PShape drawSprite() {
-    PShape sprite = createShape(RECT, 0, 0, spriteWidth, spriteHeight);
-    sprite.setFill(0);
+  public void updateSprite() {
+    String path = "./sprites/items/" + name + ".svg";
 
-    return sprite;
+    sprite = loadShape(path);
+
+    if (sprite == null) {
+      println("Error: Could not load sprite from " + path);
+    }
   }
 
   public void mouseDrag(float mouseX, float mouseY) {
@@ -122,7 +131,7 @@ class Item {
         state = ItemState.INACTIVE;
         break;
     }
-
+    
     shape(sprite, location.x, location.y);
   }
 }

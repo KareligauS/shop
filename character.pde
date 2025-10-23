@@ -9,7 +9,6 @@ class Character {
   private String name;
   private PShape sprite;
   private int spriteWidth, spriteHeight;
-  private float maxSpriteWidth, maxSpriteHeight;
   private Emotion emotion;
 
   public Character(String name) {

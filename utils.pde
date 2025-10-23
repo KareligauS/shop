@@ -1,15 +1,29 @@
-String capitalize(String str) {
-  if (str.length() < 1) throw new IllegalArgumentException("String to capilaize can't be shorter than 1 char.");
-  return str.substring(0, 1).toUpperCase() + str.substring(1);
+// Setup
+
+void setupButtons() {
+  startButton = new Button(width / 4, height / 2 - 150, 400, 100, 10, "Start Game", () -> pauseMenuClose());
+  optionsButton = new Button(width / 4, height / 2, 400, 100, 10, "Options", () -> exit());
+  exitButton = new Button(width / 4, height / 2 + 150, 400, 100, 10, "Exit", () -> exit());
 }
 
-void setCursor() {
-  if (activeButtons.stream().anyMatch(Button::isHovering)) {
-    cursor(HAND);
-  } else {
-    cursor(ARROW);
-  }
+void setupCharacters() {
+  testChar = new Character("testChar");
+  micah = new Character("micah");
 }
+
+void setupDialogue() {
+  dialogueLoader = new DialogueLoader("dialogue.json");
+  
+  endDialogue = new DialogueOverlay("end");
+  startDialogue = new DialogueOverlay("intro");
+}
+
+void setupItems() {
+  testItem = new Item(random(width), random(height), "square", true, 100, 100);
+  keyItem = new Item(random(width), random(height), "key", true, 200, 200);
+}
+
+// Pause Menu
 
 void pauseMenuOpen() {
   gameState = GameState.PAUSED;
@@ -40,27 +54,7 @@ void pauseMenuClose() {
   gameState = GameState.RUNNING;
 }
 
-void setupButtons() {
-  startButton = new Button(width / 4, height / 2 - 150, 400, 100, 10, "Start Game", () -> pauseMenuClose());
-  optionsButton = new Button(width / 4, height / 2, 400, 100, 10, "Options", () -> exit());
-  exitButton = new Button(width / 4, height / 2 + 150, 400, 100, 10, "Exit", () -> exit());
-}
-
-void setupCharacters() {
-  testChar = new Character("testChar");
-  micah = new Character("micah");
-}
-
-void setupDialogue() {
-  dialogueLoader = new DialogueLoader("dialogue.json");
-  
-  startDialogue = new DialogueOverlay("intro");
-}
-
-void setupItems() {
-  testItem = new Item(random(width), random(height), true, 100, 100);
-  bestItem = new Item(random(width), random(height), true, 200, 200);
-}
+// Draw Acvtive
 
 void drawActiveButtons() {
   activeButtons.stream()
@@ -78,4 +72,19 @@ void drawActiveItems() {
     .forEach(Item::deactivate);
 
   activeItems.forEach(Item::draw);
+}
+
+// Utils
+
+String capitalize(String str) {
+  if (str.length() < 1) throw new IllegalArgumentException("String to capilaize can't be shorter than 1 char.");
+  return str.substring(0, 1).toUpperCase() + str.substring(1);
+}
+
+void setCursor() {
+  if (activeButtons.stream().anyMatch(Button::isHovering)) {
+    cursor(HAND);
+  } else {
+    cursor(ARROW);
+  }
 }

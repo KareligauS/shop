@@ -18,7 +18,17 @@
             "text": "You need to have a threesome with Jesus.\nJe komt niet gelijkt m'n bed in, maar wel m'n deur."
         },
         {
-            "text": ""
+            "text": "EOD"
+        }
+    ],
+    "end": [
+        {
+            "char": "micah",
+            "emotion": "happy",
+            "text": "YEY, you found the key to the store!\nNow just to open it and start the day."
+        },
+        {
+            "text": "EOD"
         }
     ]
 }
