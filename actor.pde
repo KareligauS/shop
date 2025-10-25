@@ -1,8 +1,14 @@
+/**
+  * Interface that defines basic elements that can be displayed.
+  */
 abstract class IDisplayable {
   boolean isActive;
   abstract void display();
 }
 
+/**
+  * A displayable element of the scene that can perform basic actions. 
+  */
 abstract class Actor extends IDisplayable {
   public PVector position;
 
@@ -13,6 +19,9 @@ abstract class Actor extends IDisplayable {
   abstract void display();
 }
 
+/**
+  * Actor that has rect as a base 
+  */
 abstract class RectActor extends Actor {
   public boolean doStroke = false;
   public color backgroundColor = #000000;

@@ -6,6 +6,7 @@ class DecorationManager {
     spriteRootPath = rootPath;
   }
 
+  //Method that instantiates all decorations.
   public void init() {
     decorations.add(
       new Decoration("top_board_back", 
@@ -122,12 +123,13 @@ class DecorationManager {
       }
     }
   }
-
+  
   public String generateFullPath(String filename) {
     return spriteRootPath + filename + ".svg";
   }
 }
 
+//Actor of the scene that has a sprite.
 class Decoration extends RectActor {
   private String name;
   private PShape sprite;
