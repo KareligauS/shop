@@ -38,7 +38,6 @@ class DialogueLoader {
   }
 
   public JSONObject getEntry(int idx) {
-    print(index);
     if (partArray == null || idx < 0 || idx >= partArray.size()) return null;
     try {
       return partArray.getJSONObject(idx);
