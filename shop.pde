@@ -5,10 +5,10 @@ import java.text.MessageFormat;
 
 DecorationManager decorationManager = new DecorationManager("./sprites/decorations/");
 
+DialogueLoader dialogueLoader;
+
 DialogueOverlay startDialogue, endDialogue;
 DialogueOverlay activeDialogue;
-
-DialogueLoader dialogueLoader;
 
 Button startButton, optionsButton, exitButton;
 ArrayList<Button> activeButtons = new ArrayList<Button>();
@@ -25,6 +25,8 @@ enum GameState {
   FINNISHED
 }
 GameState gameState;
+
+boolean showDebug = true;
 
 void setup() {
   fullScreen();
@@ -45,7 +47,7 @@ void setup() {
 void draw() {
   background(220);
 
-  decorationManager.displayAll(true, true);
+  decorationManager.displayAll(showDebug, showDebug);
 
   switch (gameState) {
     case PAUSED:

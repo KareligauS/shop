@@ -8,7 +8,7 @@ enum Emotion {
 class Character {
   private String name;
   private PShape sprite;
-  private int spriteWidth, spriteHeight;
+  private PVector size;
   private Emotion emotion;
 
   public Character(String name) {
@@ -16,8 +16,7 @@ class Character {
     
     this.emotion = Emotion.NEUTRAL;
 
-    this.spriteWidth = 300 - 2*20; // activeDialogue.charBackWidth - 2*activeDialogue.padding
-    this.spriteHeight = spriteWidth;
+    this.size = new PVector(300 - 2*20, 300 - 2*20);
 
     characters.put(name, this);
   }
@@ -29,9 +28,11 @@ class Character {
   public void updateSprite() {
     String path = "./sprites/characters/" + name + "/" + emotion.toString().toLowerCase() + ".svg";
 
-    sprite = loadShape(path);
-
-    if (sprite == null) {
+    try {
+      sprite = loadShape(path);
+    }
+    catch (Exception e) {
+      sprite = null;
       println("Error: Could not load sprite from " + path);
     }
   }

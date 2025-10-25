@@ -59,10 +59,10 @@ class DialogueOverlay {
     character.updateSprite();
     characterSprite = character.getSprite();
 
-    PVector characterSpriteLoc = new PVector((charBackWidth/2)+margin-(character.spriteWidth/2), 
-                                             height-margin-character.spriteHeight);
+    PVector characterSpriteLoc = new PVector((charBackWidth/2)+margin-(character.size.x/2), 
+                                             height-margin-character.size.y);
 
-    shape(characterSprite, characterSpriteLoc.x, characterSpriteLoc.y, character.spriteWidth, character.spriteHeight);
+    shape(characterSprite, characterSpriteLoc.x, characterSpriteLoc.y, character.size.x, character.size.y);
   }
 
   private void drawDialogue() {

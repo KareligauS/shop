@@ -9,17 +9,14 @@ enum ItemState {
 
 class Item {
   private String name;
-  private PVector location;
-  private PVector destination;
+  private PVector position, destination, size;
   private PShape sprite;
 
   private boolean isDragable;
   private ItemState state;
 
-  private float spriteWidth, spriteHeight;
-
-  Item(float posX, float posY, String name, boolean isDragable) {
-    this.location = new PVector(posX, posY);
+  Item(float posX, float posY, float sizeX, float sizeY, String name, boolean isDragable) {
+    this.position = new PVector(posX, posY);
 
     this.name = name;
 
@@ -27,12 +24,12 @@ class Item {
     activate();
 
     this.isDragable = isDragable;
-    this.spriteWidth = this.spriteHeight = 100;
+    this.size = new PVector(sizeX, sizeY);
     updateSprite();
   }
 
-  Item(float posX, float posY, String name, boolean isDragable, float destinationX, float destinationY) {
-    this(posX, posY, name, isDragable);
+  Item(float posX, float posY, float sizeX, float sizeY, String name, boolean isDragable, float destinationX, float destinationY) {
+    this(posX, posY, sizeX, sizeY, name, isDragable);
     this.destination = new PVector(destinationX, destinationY);
   }
 
@@ -46,12 +43,12 @@ class Item {
 
   public boolean isOnDestination() {
     if (state == ItemState.DRAGGING) return false;
-    return location.equals(destination);
+    return position.equals(destination);
   }
 
   private boolean isHovering() {
-    boolean isInWidthRange = mouseX >= location.x && mouseX <= location.x + spriteWidth;
-    boolean isInHeightRange = mouseY >= location.y && mouseY <= location.y + spriteHeight;
+    boolean isInWidthRange = mouseX >= position.x && mouseX <= position.x + size.x;
+    boolean isInHeightRange = mouseY >= position.y && mouseY <= position.y + size.y;
 
     return (isInWidthRange && isInHeightRange);
   }
@@ -59,8 +56,8 @@ class Item {
   private void snapToDestination() {
     if (destination == null) return;
 
-    if (location.dist(destination) < 50) {
-      location = destination.copy();
+    if (position.dist(destination) < 50) {
+      position = destination.copy();
     }
   }
 
@@ -106,8 +103,8 @@ class Item {
   }
 
   public void mouseDrag(float mouseX, float mouseY) {
-    location.x = constrain(mouseX - spriteWidth/2, 0, width-spriteWidth);
-    location.y = constrain(mouseY - spriteHeight/2, 0, height-spriteHeight);
+    position.x = constrain(mouseX - size.x/2, 0, width-size.x);
+    position.y = constrain(mouseY - size.y/2, 0, height-size.y);
   }
 
   public void draw() {
@@ -132,6 +129,6 @@ class Item {
         break;
     }
     
-    shape(sprite, location.x, location.y);
+    shape(sprite, position.x, position.y);
   }
 }

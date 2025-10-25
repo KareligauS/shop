@@ -19,8 +19,8 @@ void setupDialogue() {
 }
 
 void setupItems() {
-  testItem = new Item(random(width), random(height), "square", true, 100, 100);
-  keyItem = new Item(random(width), random(height), "key", true, 200, 200);
+  testItem = new Item(random(width), random(height), 100, 100, "square", true, 100, 100);
+  keyItem = new Item(random(width), random(height), 100, 100, "key", true, 200, 200);
 }
 
 // Pause Menu
