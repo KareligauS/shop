@@ -70,6 +70,7 @@ class Item {
   public void buttonReleased() {
     snapToDestination();
     if (state != ItemState.HOVERING) state = ItemState.ACTIVE;
+    println(position);
   }
 
   /**

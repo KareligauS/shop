@@ -7,7 +7,7 @@ void setupButtons() {
 }
 
 void setupCharacters() {
-  testChar = new Character("testChar");
+  harry = new Character("harry");
   micah = new Character("micah");
 }
 
@@ -20,8 +20,8 @@ void setupDialogue() {
 }
 
 void setupItems() {
-  testItem = new Item(random(width), random(height), 100, 100, "square", true, 100, 100);
-  keyItem = new Item(random(width), random(height), 100, 100, "key", true, 200, 200);
+  testItem = new Item(300, 750, 100, 100, "square", true, 1135, 490);
+  keyItem = new Item(random(width), random(height), 100, 100, "key", true, 960, 640);
 }
 
 // Pause Menu

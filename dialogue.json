@@ -1,21 +1,17 @@
 {
     "intro": [
         {
-            "char": "testChar",
-            "emotion": "neutral",
-            "text": "This is a test!\nJEJ"
+            "char": "harry",
+            "emotion": "happy",
+            "text": "Thank you for comming on such short notice!"
         }, 
         {
-            "text": "Test part TWO!"
-        },
-        {
-            "char": "micah",
-            "emotion": "happy",
-            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.r"
+            "emotion": "neutral",
+            "text": "I would love to help you get settled in, but I realy need to go."
         },
         {
             "emotion": "angry",
-            "text": "You need to have a threesome with Jesus.\nJe komt niet gelijkt m'n bed in, maar wel m'n deur."
+            "text": "Last night someone made a mess of the shop and lost the keys somewhere...\nIf you could clean up before opeing the shop that wold be an enormous help!"
         },
         {
             "text": "EOD"

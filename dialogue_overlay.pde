@@ -75,7 +75,8 @@ class DialogueOverlay {
     
     // Header
     textSize(30);
-    text(characterName + " ("+characterEmotion+")", dialogueLoc.x, dialogueLoc.y + padding);
+    String headerText = MessageFormat.format("{0} ({1})", characterName, characterEmotion);
+    text(headerText, dialogueLoc.x, dialogueLoc.y + padding);
 
     // Body, wrap inside the text box
     textSize(20);

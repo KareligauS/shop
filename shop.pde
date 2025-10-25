@@ -14,7 +14,7 @@ DialogueOverlay activeDialogue;
 Button startButton, optionsButton, exitButton;
 ArrayList<Button> activeButtons = new ArrayList<Button>();
 
-Character testChar, micah;
+Character harry, micah;
 HashMap<String, Character> characters = new HashMap<>();
 
 Item testItem, keyItem;
