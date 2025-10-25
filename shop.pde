@@ -54,7 +54,7 @@ void draw() {
       drawActiveButtons();
       break;
     case RUNNING:
-      decorationManager.displayAll(showDebug);
+      decorationManager.displayAll(showDebug, showDebug);
       drawActiveItems();
       if (activeDialogue != null) activeDialogue.draw();
       drawActiveButtons();

@@ -11,12 +11,12 @@ class DecorationManager {
     decorations.add(
       new Decoration("top_board_back", 
       new PVector(0, 0), new PVector(width, 200), 
-      #333333, true, generateFullPath("None"))
+      #333333, true, generateFullPath("top_board_back"))
     );
     decorations.add(
       new Decoration("top_board_sign_back", 
       new PVector(100, 0), new PVector(width - 200, 200), 
-      #555555, true, generateFullPath("None"))
+      #555555, true, generateFullPath("top_board_sign"))
     );
     decorations.add(
       new Decoration("logo", 
@@ -26,19 +26,19 @@ class DecorationManager {
     decorations.add(
       new Decoration("column_left", 
       new PVector(0, 200), new PVector(100, height - 200), 
-      #CCCCCC, true, generateFullPath("None"))
+      #CCCCCC, true, generateFullPath("column"))
     );
     decorations.add(
       new Decoration("column_right", 
       new PVector(width-100, 200), new PVector(100, height - 200), 
-      #CCCCCC, true, generateFullPath("None"))
+      #CCCCCC, true, generateFullPath("column"))
     );
 
     //Front Layout
     decorations.add(
       new Decoration("shop_top", 
       new PVector(100, 200), new PVector(width-200, 50), 
-      #FFFFFF, true, generateFullPath("None"))
+      #FFFFFF, true, generateFullPath("shop_top"))
     );
 
     for (int i = 0; i < 5; i++) {
@@ -49,21 +49,21 @@ class DecorationManager {
       decorations.add(
         new Decoration("window_column_" + i, 
         new PVector(100 + sizeX*i + offset*i, 250), new PVector(sizeX, sizeY), 
-        #EEEEEE, true, generateFullPath("None"))
+        #EEEEEE, true, generateFullPath("window_column"))
       );
     }
 
     decorations.add(
       new Decoration("shop_bottom", 
       new PVector(100, height-30), new PVector(width-200, 30), 
-      #FFFFFF, true, generateFullPath("None"))
+      #FFFFFF, true, generateFullPath("shop_bottom"))
     );
 
     //Door
     decorations.add(
       new Decoration("door_top",
       new PVector(781, 250), new PVector(300, 150), 
-      #FFFFFF, true, generateFullPath("None"))
+      #FFFFFF, true, generateFullPath("door_top"))
     );
 
     decorations.add(
@@ -81,7 +81,7 @@ class DecorationManager {
       decorations.add(
         new Decoration("shelf_rack_horizontal_" + i, 
         new PVector(1108, 480 + sizeY*i + offset*i), new PVector(sizeX, sizeY), 
-        #555555, true, generateFullPath("None"))
+        #555555, true, generateFullPath("shelf_rack_horizontal"))
       );
     }
 
@@ -93,7 +93,7 @@ class DecorationManager {
       decorations.add(
         new Decoration("shelf_rack_vertical_" + i, 
         new PVector(1108 + sizeX*i + offset*i, 480), new PVector(sizeX, sizeY), 
-        #555555, true, generateFullPath("None"))
+        #555555, true, generateFullPath("shelf_rack_vertical"))
       );
     }
 
@@ -105,20 +105,15 @@ class DecorationManager {
     );
   }
 
-  public void displayAll(boolean showInfo) {
-    for (Decoration entry : decorations){
-      if (!entry.isActive) continue;
+  public void displayAll(boolean showBackground, boolean showInfo) {
+    decorations.stream()
+      .filter(decoration -> decoration.isActive)
+      .forEach(decoration -> {
+        if (showBackground) decoration.displayBackground();
+        decoration.display();
+    });
 
-      entry.display();
-    }
-
-    for (Decoration entry : decorations){
-      if (!entry.isActive) continue;
-
-      if (showInfo){
-        entry.displayInfo();
-      }
-    }
+    if (showInfo) decorations.forEach(Decoration::displayInfo);
   }
 
   public void handleMousePressed(PVector mousePosition){
@@ -164,7 +159,7 @@ class Decoration extends RectActor {
     }
     catch (Exception e) {
       sprite = null;
-      println("Error: Could not load sprite from " + path);
+      println("Error: Could not load sprite for \"" + name + "\" from " + path);
     }
   }
 
@@ -174,9 +169,7 @@ class Decoration extends RectActor {
 
     if (showBackground) displayBackground();
 
-    if (sprite != null) {
-      shape(sprite, position.x, position.y, size.x, size.y);
-    }
+    if (sprite != null) shape(sprite, position.x, position.y, size.x, size.y);
   }
 
   void displayInfo() {
