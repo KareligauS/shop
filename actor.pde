@@ -35,5 +35,28 @@ abstract class RectActor extends Actor {
     rect(position.x, position.y, size.x, size.y);
   }
 
+  public boolean isInside(PVector pointerPosition){
+    if (pointerPosition.x > minX() && pointerPosition.x < maxX() && pointerPosition.y > minY() && pointerPosition.y < maxY()) 
+      return true;
+    else
+      return false;
+  }
+
+  public float minX() {
+    return position.x;
+  }
+
+  public float maxX() {
+    return position.x + size.x;
+  }
+
+  public float minY() {
+    return position.y;
+  }
+
+  public float maxY() {
+    return position.y + size.y;
+  }
+
   abstract void display();
 }

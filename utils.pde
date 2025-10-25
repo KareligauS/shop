@@ -14,8 +14,9 @@ void setupCharacters() {
 void setupDialogue() {
   dialogueLoader = new DialogueLoader("dialogue.json");
   
-  endDialogue = new DialogueOverlay("end");
+  logoDialogue = new DialogueOverlay("logo");
   startDialogue = new DialogueOverlay("intro");
+  endDialogue = new DialogueOverlay("end");
 }
 
 void setupItems() {

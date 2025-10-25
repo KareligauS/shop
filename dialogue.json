@@ -30,5 +30,18 @@
         {
             "text": "EOD"
         }
+    ],
+    "logo": [
+        {
+            "char": "micah",
+            "emotion": "happy",
+            "text": "I like this logo!"
+        },
+        {
+            "text": "Hehe."
+        },
+        {
+            "text": "EOD"
+        }
     ]
 }

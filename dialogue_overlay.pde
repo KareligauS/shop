@@ -8,6 +8,7 @@ class DialogueOverlay {
 
   // Dialogue
   private PVector dialogueLoc;
+  private String dialoguePart;
 
   // Character
   private Character character;
@@ -18,6 +19,8 @@ class DialogueOverlay {
 
   public DialogueOverlay(String dialoguePart) {
     dialogueLoader.loadPart(dialoguePart);
+
+    this.dialoguePart = dialoguePart;
 
     this.bgColor = 30;
     this.textColor= 255;
@@ -81,6 +84,10 @@ class DialogueOverlay {
   }
 
   public void startDialogue() {
+    if (activeDialogue != null) return;
+
+    dialogueLoader.loadPart(dialoguePart);
+    updateDialogue();
     activeDialogue = this;
   }
 

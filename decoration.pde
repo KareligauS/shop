@@ -120,6 +120,22 @@ class DecorationManager {
       }
     }
   }
+
+  public void handleMousePressed(PVector mousePosition){
+    processClickedOnDecoration(mousePosition);
+  }
+
+  public void processClickedOnDecoration(PVector mousePosition){
+    List<Decoration> clickedDecorations = decorations.stream()
+      .filter(item -> item.isInside(mousePosition))
+      .toList();
+    
+    runIfNameMatches(clickedDecorations, "logo", () -> logoDialogue.startDialogue());
+  }
+
+  public void runIfNameMatches(List<Decoration> collection, String name, Runnable action){
+    if (collection.stream().anyMatch(item -> item.name == name)) action.run();
+  }
   
   public String generateFullPath(String filename) {
     return spriteRootPath + filename + ".svg";

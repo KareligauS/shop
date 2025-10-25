@@ -2,12 +2,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.text.MessageFormat;
+import java.util.List;
 
 DecorationManager decorationManager = new DecorationManager("./sprites/decorations/");
 
 DialogueLoader dialogueLoader;
 
-DialogueOverlay startDialogue, endDialogue;
+DialogueOverlay startDialogue, endDialogue, logoDialogue;
 DialogueOverlay activeDialogue;
 
 Button startButton, optionsButton, exitButton;
@@ -37,17 +38,15 @@ void setup() {
   setupDialogue();
   setupItems();
 
-  startDialogue.startDialogue();
-
   pauseMenuOpen();
 
   decorationManager.init();
+
+  startDialogue.startDialogue();
 }
 
 void draw() {
   background(220);
-
-  decorationManager.displayAll(showDebug);
 
   switch (gameState) {
     case PAUSED:
@@ -55,6 +54,7 @@ void draw() {
       drawActiveButtons();
       break;
     case RUNNING:
+      decorationManager.displayAll(showDebug);
       drawActiveItems();
       if (activeDialogue != null) activeDialogue.draw();
       drawActiveButtons();
@@ -84,6 +84,7 @@ void mousePressed() {
     if (activeDialogue != null) {
       activeDialogue.nextDialogue();
     } else {
+      decorationManager.handleMousePressed(new PVector(mouseX, mouseY));
       activeItems.stream()
         .filter(item -> item.getState() == ItemState.HOVERING)
         .forEach(Item::buttonPressed);
