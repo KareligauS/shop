@@ -11,34 +11,34 @@ class DecorationManager {
     decorations.add(
       new Decoration("top_board_back", 
       new PVector(0, 0), new PVector(width, 200), 
-      #333333, generateFullPath("None"))
+      #333333, true, generateFullPath("None"))
     );
     decorations.add(
       new Decoration("top_board_sign_back", 
       new PVector(100, 0), new PVector(width - 200, 200), 
-      #555555, generateFullPath("None"))
+      #555555, true, generateFullPath("None"))
     );
     decorations.add(
       new Decoration("logo", 
       new PVector(150, 0), new PVector(200, 200), 
-      #ADD8E6, generateFullPath("logo"))
+      #ADD8E6, false, generateFullPath("logo"))
     );
     decorations.add(
       new Decoration("column_left", 
       new PVector(0, 200), new PVector(100, height - 200), 
-      #CCCCCC, generateFullPath("None"))
+      #CCCCCC, true, generateFullPath("None"))
     );
     decorations.add(
       new Decoration("column_right", 
       new PVector(width-100, 200), new PVector(100, height - 200), 
-      #CCCCCC, generateFullPath("None"))
+      #CCCCCC, true, generateFullPath("None"))
     );
 
     //Front Layout
     decorations.add(
       new Decoration("shop_top", 
       new PVector(100, 200), new PVector(width-200, 50), 
-      #FFFFFF, generateFullPath("None"))
+      #FFFFFF, true, generateFullPath("None"))
     );
 
     for (int i = 0; i < 5; i++) {
@@ -49,27 +49,27 @@ class DecorationManager {
       decorations.add(
         new Decoration("window_column_" + i, 
         new PVector(100 + sizeX*i + offset*i, 250), new PVector(sizeX, sizeY), 
-        #EEEEEE, generateFullPath("None"))
+        #EEEEEE, true, generateFullPath("None"))
       );
     }
 
     decorations.add(
       new Decoration("shop_bottom", 
       new PVector(100, height-30), new PVector(width-200, 30), 
-      #FFFFFF, generateFullPath("None"))
+      #FFFFFF, true, generateFullPath("None"))
     );
 
     //Door
     decorations.add(
       new Decoration("door_top",
       new PVector(781, 250), new PVector(300, 150), 
-      #FFFFFF, generateFullPath("None"))
+      #FFFFFF, true, generateFullPath("None"))
     );
 
     decorations.add(
       new Decoration("door_body",
       new PVector(781, 400), new PVector(300, 530), 
-      #FFFF33, generateFullPath("door"))
+      #FFFF33, false, generateFullPath("door"))
     );
 
     //Shelf
@@ -81,7 +81,7 @@ class DecorationManager {
       decorations.add(
         new Decoration("shelf_rack_horizontal_" + i, 
         new PVector(1108, 480 + sizeY*i + offset*i), new PVector(sizeX, sizeY), 
-        #555555, generateFullPath("None"))
+        #555555, true, generateFullPath("None"))
       );
     }
 
@@ -93,7 +93,7 @@ class DecorationManager {
       decorations.add(
         new Decoration("shelf_rack_vertical_" + i, 
         new PVector(1108 + sizeX*i + offset*i, 480), new PVector(sizeX, sizeY), 
-        #555555, generateFullPath("None"))
+        #555555, true, generateFullPath("None"))
       );
     }
 
@@ -101,16 +101,13 @@ class DecorationManager {
     decorations.add(
       new Decoration("bench", 
       new PVector(250, 730), new PVector(400, 200), 
-      #FF8000, generateFullPath("bench"))
+      #FF8000, false, generateFullPath("bench"))
     );
   }
 
-  public void displayAll(boolean showInfo, boolean showBackground) {
+  public void displayAll(boolean showInfo) {
     for (Decoration entry : decorations){
       if (!entry.isActive) continue;
-
-      if (showBackground)
-        entry.displayBackground();
 
       entry.display();
     }
@@ -133,13 +130,15 @@ class DecorationManager {
 class Decoration extends RectActor {
   private String name;
   private PShape sprite;
+  private boolean showBackground;
 
-  public Decoration(String name, PVector initialPos, PVector size, color backgroundColor, String spritePath){
+  public Decoration(String name, PVector initialPos, PVector size, color backgroundColor, boolean showBackground, String spritePath){
     this.name = name;
     this.size = size;
     this.position = initialPos;
     this.isActive = true;
     this.backgroundColor = backgroundColor;
+    this.showBackground = showBackground;
     updateSprite(spritePath);
   }
 
@@ -156,6 +155,8 @@ class Decoration extends RectActor {
   void display() {
     if (doStroke) stroke(0);
     else noStroke();
+
+    if (showBackground) displayBackground();
 
     if (sprite != null) {
       shape(sprite, position.x, position.y, size.x, size.y);

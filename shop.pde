@@ -47,7 +47,7 @@ void setup() {
 void draw() {
   background(220);
 
-  decorationManager.displayAll(showDebug, showDebug);
+  decorationManager.displayAll(showDebug);
 
   switch (gameState) {
     case PAUSED:
