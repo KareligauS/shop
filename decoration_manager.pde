@@ -46,6 +46,13 @@ class DecorationManager {
       #CCCCCC, true, generateFullPath("column"))
     );
 
+    //Inside Shop
+    decorations.add(
+      new Decoration("table", 
+      new PVector(135, 650), new PVector(600, 350), 
+      #FFFFFF, false, generateFullPath("table"))
+    );
+
     //Front Layout
     decorations.add(
       new Decoration("shop_top", 
@@ -126,7 +133,7 @@ class DecorationManager {
     //Bench
     decorations.add(
       new Decoration("bench", 
-      new PVector(250, 730), new PVector(400, 200), 
+      new PVector(270, 730), new PVector(400, 200), 
       #FF8000, false, generateFullPath("bench"))
     );
   }
