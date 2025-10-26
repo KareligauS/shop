@@ -125,7 +125,6 @@ class Button {
   public void activate() {
     if (state == ButtonState.INACTIVE) {
       state = ButtonState.ACTIVE;
-      activeButtons.add(this);
     }
   }
 
@@ -134,7 +133,6 @@ class Button {
    */
   public void deactivate() {
     state = ButtonState.INACTIVE;
-    activeButtons.remove(this);
   }
 
 

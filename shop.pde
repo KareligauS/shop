@@ -5,14 +5,12 @@ import java.text.MessageFormat;
 import java.util.List;
 
 DecorationManager decorationManager = new DecorationManager("./sprites/decorations/");
+MenuManager menuManager = new MenuManager();
 
 DialogueLoader dialogueLoader;
 
 DialogueOverlay startDialogue, endDialogue, logoDialogue;
 DialogueOverlay activeDialogue;
-
-Button startButton, optionsButton, exitButton;
-ArrayList<Button> activeButtons = new ArrayList<Button>();
 
 Character harry, micah;
 HashMap<String, Character> characters = new HashMap<>();
@@ -27,20 +25,19 @@ enum GameState {
 }
 GameState gameState;
 
-boolean showDebug = true;
+boolean showDebug;
 
 void setup() {
   fullScreen();
   size(1500, 1000);
 
-  setupButtons();
   setupCharacters();
   setupDialogue();
   setupItems();
 
-  pauseMenuOpen();
-
   decorationManager.init();
+  menuManager.init();
+  menuManager.openMenu("pause");
 
   startDialogue.startDialogue();
 }
@@ -48,16 +45,16 @@ void setup() {
 void draw() {
   background(220);
 
+  menuManager.setCursor();
+
   switch (gameState) {
     case PAUSED:
-      pauseMenuDraw();
-      drawActiveButtons();
+      menuManager.displayActive();
       break;
     case RUNNING:
       decorationManager.displayAll(showDebug, showDebug);
       drawActiveItems();
       if (activeDialogue != null) activeDialogue.draw();
-      drawActiveButtons();
 
       if (testItem.isOnDestination() && keyItem.isOnDestination()) {
         gameState = GameState.FINNISHED;
@@ -67,7 +64,6 @@ void draw() {
     case FINNISHED:
       drawActiveItems();
       if (activeDialogue != null) activeDialogue.draw();
-      drawActiveButtons();
       break;
     default:
       gameState = GameState.PAUSED;
@@ -76,7 +72,7 @@ void draw() {
 }
 
 void mousePressed() {
-  activeButtons.forEach(Button::buttonPressed);
+  menuManager.buttonPressed();
 
   switch (gameState) {
   case RUNNING:
@@ -107,10 +103,7 @@ void mouseDragged() {
 }
 
 void mouseReleased() {
-  // activeButtons.forEach(Button::buttonReleased);
-  startButton.buttonReleased();
-  optionsButton.buttonReleased();
-  exitButton.buttonReleased();
+  menuManager.buttonReleased();
 
   activeItems.forEach(Item::buttonReleased);
 }
@@ -127,9 +120,9 @@ void keyPressed() {
     case ESC:
       key = 0;
       if (gameState == GameState.PAUSED) {
-        pauseMenuClose();
+        menuManager.closeMenu();
       } else {
-        pauseMenuOpen();
+        menuManager.openMenu("pause");
       }
       break;
   }
