@@ -1,87 +1,112 @@
 class ParticleSource{
-    private PVector startingPoint;
-    private PVector endPoint;
-    private PVector particleInitialSize;
-    private PVector particleFinalSize;
-    private float particleSpeed;
-    private float spawnDelay;
-    private float nearTolerance = 10;
-    private boolean automatedGeneration = true;
+  private PVector startPoint, endPoint;
+  private PVector particleInitialSize, particleFinalSize;
+  private float particleSpeed;
+  private float spawnDelay;
+  private float nearTolerance;
+  private boolean automatedGeneration = true;
 
-    private ArrayList<Particle> pool = new ArrayList<Particle>();
-    private ArrayList<Particle> activeParticles = new ArrayList<Particle>();
+  private ArrayList<Particle> pool = new ArrayList<Particle>();
+  private ArrayList<Particle> activeParticles = new ArrayList<Particle>();
 
-    public ParticleSource(PVector startingPoint, PVector endPoint, PVector particleInitialSize, PVector particleFinalSize, float particleSpeed, float spawnDelay, boolean automatedGeneration){
-        this.startingPoint = startingPoint;
-        this.endPoint = endPoint;
-        this.spawnDelay = spawnDelay;
-        this.particleSpeed = particleSpeed;
-        this.particleInitialSize = particleInitialSize;
-        this.particleFinalSize = particleFinalSize;
-        this.automatedGeneration = automatedGeneration;
+  public ParticleSource(PVector startPoint, PVector endPoint, PVector particleInitialSize, PVector particleFinalSize, float particleSpeed, float spawnDelay, boolean automatedGeneration){
+    this.startPoint = startPoint;
+    this.endPoint = endPoint;
+    this.spawnDelay = spawnDelay;
+    this.particleSpeed = particleSpeed;
+    this.particleInitialSize = particleInitialSize;
+    this.particleFinalSize = particleFinalSize;
+    this.nearTolerance = 10;
+    this.automatedGeneration = automatedGeneration;
+  }
+
+  public void doAutomaticGeneration(boolean state){
+    automatedGeneration = state;
+  }
+
+  /**
+   * Clears all the Particles from the pool and activeParticles.
+   */
+  public void clearParticles(){
+    pool.clear();
+    activeParticles.clear();
+  }
+
+  /**
+   * Adds a new particle to the pool, so it can later be used later.
+   */
+  public void addParticles(int count, String particleSpritePath){
+    for(int i = 0; i < count; i++){
+      Particle particle = new Particle("particle", startPoint.copy(), particleInitialSize.copy(), particleFinalSize.copy(), #FFFFFF, false, particleSpritePath);
+      particle.isActive = false;
+      pool.add(particle);
     }
+  }
 
-    public void doAutomaticGeneration(boolean state){
-        automatedGeneration = state;
-    }
+  /**
+   * Activates a random particle by getting it from the pool.
+   */
+  private void activateRandomParticle(){
+    if (pool.size() == 0) return;
 
-    public void clearParticles(){
-        pool.clear();
-        activeParticles.clear();
-    }
+    Particle randomParticle = pool.get(int(random(pool.size() - 1)));
+    pool.remove(randomParticle);
+    activeParticles.add(randomParticle);
+    randomParticle.isActive = true;
+  }
 
-    public void addParticles(int count, String particleSpritePath){
-        for(int i = 0; i < count; i++){
-            Particle particle = new Particle("particle", startingPoint.copy(), particleInitialSize.copy(), particleFinalSize.copy(), #FFFFFF, false, particleSpritePath);
-            particle.isActive = false;
-            pool.add(particle);
-        }
-    }
+  /**
+   * Deactivates the particle by removing it from activeParticles. 
+   */
+  private void deactivateParticle(Particle particle){
+    particle.position = new PVector(startPoint.x, startPoint.y);
+    pool.add(particle);
+    activeParticles.remove(particle);
+  }
 
-    private void activateRandomParticle(){
-        if (pool.size() == 0) return;
+  /**
+   * Updates the particle - move, deactivate.
+   */
+  public void updateParticles(){
+    if(frameCount % spawnDelay == 0 && automatedGeneration) activateRandomParticle();
 
-        Particle randomParticle = pool.get(int(random(pool.size() - 1)));
-        pool.remove(randomParticle);
-        activeParticles.add(randomParticle);
-        randomParticle.isActive = true;
-    }
+    ArrayList<Particle> toDeactivate = new ArrayList<Particle>();
 
-    private void deactivateParticle(Particle particle){
-        particle.position = new PVector(startingPoint.x, startingPoint.y);
-        pool.add(particle);
-        activeParticles.remove(particle);
-    }
+    activeParticles.stream()
+      .filter(item -> item.nearPoint(endPoint, nearTolerance))
+      .forEach(item -> toDeactivate.add(item));
 
-    public void updateParticles(){
-        if(frameCount % spawnDelay == 0 && automatedGeneration) activateRandomParticle();
+    toDeactivate.forEach(item -> deactivateParticle(item));
 
-        ArrayList<Particle> toDeactivate = new ArrayList<Particle>();
+    activeParticles.stream()
+      .forEach(item -> {
+        item.moveTowardsPoint(endPoint, particleSpeed);
+        item.changeSizeTowardsPoint(endPoint);
+    });
+  }
 
-        activeParticles.stream()
-            .filter(item -> item.nearPoint(endPoint, nearTolerance))
-            .forEach(item -> toDeactivate.add(item));
+  /**
+   * Draws the particle.
+   */
+  public void displayParticles(){
+    activeParticles.forEach(item -> item.display());
+  }
 
-        toDeactivate.forEach(item -> deactivateParticle(item));
+  /**
+   * Displays (debug) information about the particle 
+   */
+  public void displayParticlesInfo(){
+    activeParticles.forEach(item -> item.displayInfo());
+  }
 
-        activeParticles.stream()
-            .forEach(item -> {
-                item.moveTowardsPoint(endPoint, particleSpeed);
-                item.changeSizeTowardsPoint(endPoint);
-        });
-    }
-
-    public void displayParticles(){
-        activeParticles.forEach(item -> item.display());
-    }
-
-    public void displayParticlesInfo(){
-        activeParticles.forEach(item -> item.displayInfo());
-    }
-
-    public void displayAll(boolean showDebug){
-        updateParticles();
-        displayParticles();
-        if (showDebug) displayParticlesInfo();
-    }
+  /**
+   * Draws all active Particles and (if active) debugInfo.
+   *
+   * @param showDebug boolean - show (debug) information about the particle
+   */
+  public void displayAll(boolean showDebug){
+    updateParticles();
+    displayParticles();
+    if (showDebug) displayParticlesInfo();
+  }
 }
