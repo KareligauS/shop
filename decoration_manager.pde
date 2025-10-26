@@ -53,6 +53,12 @@ class DecorationManager {
       #FFFFFF, false, generateFullPath("table"))
     );
 
+    decorations.add(
+      new Decoration("picture_left", 
+      new PVector(150, 300), new PVector(250, 250), 
+      #FFFFFF, false, generateFullPath("picture_4"))
+    );
+
     //Front Layout
     decorations.add(
       new Decoration("shop_top", 
