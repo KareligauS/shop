@@ -15,7 +15,7 @@ ParticleSystem particleSystem = new ParticleSystem("./sprites/particles/");
 DialogueLoader dialogueLoader;
 
 DialogueOverlay startDialogue, endDialogue, logoDialogue;
-DialogueOverlay musicboxOffDialogue, musicboxOnDialogue;
+DialogueOverlay musicboxOffDialogue, musicboxOnDialogue, vinylDialogue, pictureDialogue, benchDialogue;
 DialogueOverlay activeDialogue;
 
 Character harry, micah;

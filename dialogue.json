@@ -53,12 +53,17 @@
     ],
     "logo": [
         {
-            "char": "micah",
+            "char": "harry",
             "emotion": "happy",
             "text": "I like this logo!"
         },
         {
-            "text": "Hehe."
+            "text": "Looks professional and stylish."
+        },
+        {
+            "char": "micah",
+            "emotion": "thinking",
+            "text": "Headwhirling..."
         },
         {
             "text": "EOD"
@@ -86,6 +91,51 @@
         {
             "emotion": "angry",
             "text": "Let's get to work."
+        },
+        {
+            "text": "EOD"
+        }
+    ],
+    "vinyl": [
+        {
+            "char": "harry",
+            "emotion": "sad",
+            "text": "Reminds me of old times."
+        },
+        {
+            "char": "micah",
+            "emotion": "happy",
+            "text": "Lalalalaaaaaa!"
+        },
+        {
+            "text": "EOD"
+        }
+    ],
+    "picture": [
+        {
+            "char": "micah",
+            "emotion": "neutral",
+            "text": "Do you know who these people are?"
+        },
+        {
+            "char": "harry",
+            "emotion": "happy",
+            "text": "No idea, but they look cool. The artist came straight from the heaven!"
+        },
+        {
+            "text": "EOD"
+        }
+    ],
+    "bench": [
+        {
+            "char": "micah",
+            "emotion": "angry",
+            "text": "No time to rest!"
+        },
+        {
+            "char": "harry",
+            "emotion": "sad",
+            "text": "But this bench look so comfy..."
         },
         {
             "text": "EOD"

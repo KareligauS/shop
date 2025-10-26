@@ -20,6 +20,9 @@ void setupDialogue() {
 
   musicboxOnDialogue = new DialogueOverlay("musicbox_on");
   musicboxOffDialogue = new DialogueOverlay("musicbox_off");
+  vinylDialogue = new DialogueOverlay("vinyl");
+  pictureDialogue = new DialogueOverlay("picture");
+  benchDialogue = new DialogueOverlay("bench");
 }
 
 void setupParticleSources(){
@@ -34,6 +37,12 @@ void setupParticleSources(){
   particleSystem.fillSource("right_musicbox_inside", 5, "noteA");
   particleSystem.fillSource("right_musicbox_inside", 5, "noteB");
   particleSystem.fillSource("right_musicbox_inside", 5, "noteC");
+
+  ParticleSource vinylSource = new ParticleSource(new PVector(1150, 900), new PVector(1150, 450), new PVector(40, 40), new PVector(75, 75), 1, 50, false);
+  particleSystem.register("vinyl", vinylSource);
+  particleSystem.fillSource("vinyl", 5, "noteA");
+  particleSystem.fillSource("vinyl", 5, "noteB");
+  particleSystem.fillSource("vinyl", 5, "noteC");
 }
 
 /**

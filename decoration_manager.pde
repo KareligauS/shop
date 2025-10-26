@@ -54,6 +54,12 @@ class DecorationManager {
     );
 
     decorations.add(
+      new Decoration("vinyl", 
+      new PVector(1135, 845), new PVector(100, 80), 
+      #FFFFFF, false, generateFullPath("vinyl_off"))
+    );
+
+    decorations.add(
       new Decoration("picture_left", 
       new PVector(150, 300), new PVector(250, 250), 
       #FFFFFF, false, generateFullPath("picture_4"))

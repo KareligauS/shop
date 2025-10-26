@@ -2,6 +2,7 @@ class DecorationEventHandler{
   private DecorationManager model;
   private boolean isDoorOpened = false;
   private boolean isInsideMusicBoxActivated = false;
+  private boolean isVinylPlays = false;
 
   public DecorationEventHandler(DecorationManager model){
     this.model = model;
@@ -23,9 +24,17 @@ class DecorationEventHandler{
         });
         break;
       default:
+          model.runIfNameMatches(clickedDecorations, "logo_back", () -> logoDialogue.startDialogue());
+          model.runIfNameMatches(clickedDecorations, "picture_left", () -> pictureDialogue.startDialogue());
+          model.runIfNameMatches(clickedDecorations, "bench", () -> benchDialogue.startDialogue());
           model.runIfNameMatches(clickedDecorations, "musicbox_inside", () -> {
             if (isInsideMusicBoxActivated) stopMusicParticlesForInsideMusicBox();
             else startMusicParticlesForInsideMusicBox();
+          });
+
+          model.runIfNameMatches(clickedDecorations, "vinyl", () -> {
+            if (isVinylPlays) stopVynil();
+            else startVinyl();
           });
         break;
     }
@@ -58,5 +67,16 @@ class DecorationEventHandler{
     particleSystem.doAutomaticGeneration("right_musicbox_inside", false);
     isInsideMusicBoxActivated = false;
     musicboxOffDialogue.startDialogue();
+  }
+
+  public void startVinyl(){
+    particleSystem.doAutomaticGeneration("vinyl", true);
+    isVinylPlays = true;
+    vinylDialogue.startDialogue();
+  }
+
+  public void stopVynil(){
+    particleSystem.doAutomaticGeneration("vinyl", false);
+    isVinylPlays = false;
   }
 }
