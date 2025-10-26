@@ -14,6 +14,30 @@
             "text": "Last night someone made a mess of the shop and lost the keys somewhere...\nIf you could clean up before opeing the shop that wold be an enormous help!"
         },
         {
+            "char": "micah",
+            "emotion": "surprise",
+            "text": "Wow, a mess? What exactly happened? Was it a break-in?"
+        },
+        {
+            "char": "harry",
+            "emotion": "sad",
+            "text": "I don't think so. The lock wasn't forced... I think it was that mischievous **Bob** again."
+        },
+        {
+            "emotion": "neutral",
+            "text": "They love to pull things off shelves and hide shiny objects. That's probably where the key went."
+        },
+        {
+            "char": "micah",
+            "emotion": "thinking",
+            "text": "A Bob... right. So I'm looking for a key hidden by a sneaky, little creature."
+        },
+        {
+            "char": "harry",
+            "emotion": "neutral",
+            "text": "Precisely. The mess is mostly in the storage area. If you start there, you'll likely find a clue, or at least a path to the key."
+        },
+        {
             "text": "EOD"
         }
     ],

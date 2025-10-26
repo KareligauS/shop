@@ -22,7 +22,7 @@ class DecorationManager {
     );
     decorations.add(
       new Decoration("logo", 
-      new PVector(150, 0), new PVector(200, 200), 
+      new PVector(250, 100), new PVector(200, 200), 
       #ADD8E6, false, generateFullPath("logo"))
     );
     decorations.add(
@@ -111,6 +111,10 @@ class DecorationManager {
    * Displays all active Decorations.
    */
   public void displayAll() {
+    decorations.stream()
+      .filter(item -> item.name == "logo")
+      .forEach(item -> item.sprite.rotate(.05));
+
     decorations.stream()
       .filter(decoration -> decoration.isActive)
       .forEach(decoration -> {

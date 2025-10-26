@@ -16,7 +16,7 @@ DialogueOverlay activeDialogue;
 Character harry, micah;
 HashMap<String, Character> characters = new HashMap<>();
 
-Item bookItem, keyItem;
+Item bookItem, keyItem, boxItem1, boxItem2, boxItem3;
 ArrayList<Item> activeItems = new ArrayList<Item>();
 
 enum GameState {
@@ -57,7 +57,7 @@ void draw() {
       drawActiveItems();
       if (activeDialogue != null) activeDialogue.draw();
 
-      if (bookItem.isOnDestination() && keyItem.isOnDestination()) {
+      if (areItemsOnDestination()) {
         endDialogue.startDialogue();
         gameState = GameState.FINNISHED;
       }
@@ -97,9 +97,9 @@ void mousePressed() {
 void mouseDragged() {
   switch (gameState) {
   case RUNNING:
-    activeItems.stream()
+  activeItems.stream()
       .filter(item -> item.isDragable() && item.getState() == ItemState.DRAGGING)
-      .findFirst()
+      .reduce((first, second) -> second)
       .ifPresent(item -> item.mouseDrag(mouseX, mouseY));
     break;
   default: break;

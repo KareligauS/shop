@@ -3,7 +3,6 @@ class Decoration extends RectActor {
   private String name;
   private PShape sprite;
   private boolean showBackground;
-  private String spritePath;
 
   public Decoration(String name, PVector initialPos, PVector size, color backgroundColor, boolean showBackground, String spritePath){
     this.name = name;
@@ -12,7 +11,6 @@ class Decoration extends RectActor {
     this.isActive = true;
     this.backgroundColor = backgroundColor;
     this.showBackground = showBackground;
-    this.spritePath = spritePath;
     this.sprite = null;
     updateSprite(spritePath);
   }
@@ -23,7 +21,6 @@ class Decoration extends RectActor {
   public void updateSprite(String path) {
     try {
       sprite = loadShape(path);
-      spritePath = path;
     }
     catch (Exception e) {
       println("Error: Could not load sprite for \"" + name + "\" from " + path);
