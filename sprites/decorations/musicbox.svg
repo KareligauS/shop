@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="618.58" height="338.57" viewBox="0 0 618.58 338.57">
+  <rect x="0" width="618.58" height="338.57" fill="#afafaf"/>
+  <rect y="17.39" width="618.58" height="29.81" fill="#333"/>
+  <circle cx="105.85" cy="224.91" r="84.55" fill="#2c3035"/>
+  <circle cx="518.05" cy="224.91" r="84.55" fill="#2c3035"/>
+  <rect x="238.04" y="83.67" width="144.97" height="127.76" fill="#2c3035"/>
+  <line x1="11.3" y1="90.5" x2="95.85" y2="90.5" fill="none" stroke="#424242" stroke-miterlimit="10" stroke-width="8"/>
+  <line x1="109.25" y1="90.5" x2="190.4" y2="90.5" fill="none" stroke="#424242" stroke-miterlimit="10" stroke-width="8"/>
+  <line x1="428.5" y1="90.5" x2="513.05" y2="90.5" fill="none" stroke="#424242" stroke-miterlimit="10" stroke-width="8"/>
+  <line x1="526.45" y1="90.5" x2="607.6" y2="90.5" fill="none" stroke="#424242" stroke-miterlimit="10" stroke-width="8"/>
+  <polygon points="249.92 156.15 249.92 201.34 373.96 201.34 373.96 156.15 347.91 156.15 347.91 187.86 278.11 187.86 278.11 156.15 249.92 156.15" fill="#c9c7c7"/>
+  <circle cx="105.85" cy="226.42" r="25.08" fill="#c9c7c7" stroke="#424242" stroke-miterlimit="10" stroke-width="4"/>
+  <circle cx="518.05" cy="224.91" r="25.08" fill="#c9c7c7" stroke="#424242" stroke-miterlimit="10" stroke-width="4"/>
+  <rect x="339.42" y="267.94" width="43.59" height="17.39" fill="#333"/>
+  <rect x="238.04" y="294.44" width="31.7" height="10.41" fill="#707070"/>
+  <rect x="275.84" y="294.44" width="31.7" height="10.41" fill="#707070"/>
+  <rect x="313.69" y="294.44" width="31.7" height="10.41" fill="#707070"/>
+  <rect x="351.31" y="294.44" width="31.7" height="10.41" fill="#707070"/>
+  <path d="M101.91,162.3c-36.3,6.18-60.84,39.69-56.31,73.82,4.39,33.07,35.05,59.19,67.19,56.31,35.04-3.14,63.76-40.01,55.84-81" fill="none" stroke="#707070" stroke-miterlimit="10" stroke-width="6"/>
+  <path d="M91.38,186.08c2.79-1.21,19.38-8.11,36.55,0,11.57,5.46,17.04,14.73,19.16,18.45,1.71,2.99,13.04,23.58,2.72,42.94-7.58,14.22-22.02,18.73-27.58,20.47-3.98,1.25-29.27,9.15-47.19-7.33-13.72-12.63-13.58-30.78-13.49-34.19" fill="none" stroke="#707070" stroke-miterlimit="10" stroke-width="6"/>
+  <path d="M487.56,193.65c-2.71,2.56-13.42,13.3-13.49,29.34-.03,8.25,2.77,14.36,4.26,17.51,1.61,3.42,8.21,16.85,23.9,23.19,13.96,5.64,30.41,3.76,42.35-4.97,6.23-4.55,9.86-9.97,11.83-13.49" fill="none" stroke="#707070" stroke-miterlimit="10" stroke-width="6"/>
+  <path d="M472.18,270.55c2.43,2.86,22.21,25.29,53.71,23.9,25.94-1.15,41.93-17.67,45.66-21.77,18.48-20.3,22.04-50.07,12.54-74.29-9.37-23.9-30.66-40.4-53.55-44.95-13.41-2.67-24.82-.73-31.62,1.02" fill="none" stroke="#707070" stroke-miterlimit="10" stroke-width="6"/>
+</svg>

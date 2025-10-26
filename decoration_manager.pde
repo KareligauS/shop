@@ -59,6 +59,12 @@ class DecorationManager {
       #FFFFFF, false, generateFullPath("picture_4"))
     );
 
+    decorations.add(
+      new Decoration("musicbox_inside", 
+      new PVector(475, 500), new PVector(250, 150), 
+      #FFFFFF, false, generateFullPath("musicbox"))
+    );
+
     //Front Layout
     decorations.add(
       new Decoration("shop_top", 

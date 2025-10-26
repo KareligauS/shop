@@ -6,19 +6,23 @@ class ParticleSource{
     private float particleSpeed;
     private float spawnDelay;
     private float nearTolerance = 10;
-    private boolean doFlick = false;
+    private boolean automatedGeneration = true;
 
     private ArrayList<Particle> pool = new ArrayList<Particle>();
     private ArrayList<Particle> activeParticles = new ArrayList<Particle>();
 
-    public ParticleSource(PVector startingPoint, PVector endPoint, PVector particleInitialSize, PVector particleFinalSize, float particleSpeed, float spawnDelay, boolean doFlick){
+    public ParticleSource(PVector startingPoint, PVector endPoint, PVector particleInitialSize, PVector particleFinalSize, float particleSpeed, float spawnDelay, boolean automatedGeneration){
         this.startingPoint = startingPoint;
         this.endPoint = endPoint;
         this.spawnDelay = spawnDelay;
         this.particleSpeed = particleSpeed;
         this.particleInitialSize = particleInitialSize;
         this.particleFinalSize = particleFinalSize;
-        this.doFlick = doFlick;
+        this.automatedGeneration = automatedGeneration;
+    }
+
+    public void doAutomaticGeneration(boolean state){
+        automatedGeneration = state;
     }
 
     public void clearParticles(){
@@ -30,7 +34,6 @@ class ParticleSource{
         for(int i = 0; i < count; i++){
             Particle particle = new Particle("particle", startingPoint.copy(), particleInitialSize.copy(), particleFinalSize.copy(), #FFFFFF, false, particleSpritePath);
             particle.isActive = false;
-            if (doFlick) particle.doStroke = true;
             pool.add(particle);
         }
     }
@@ -51,7 +54,7 @@ class ParticleSource{
     }
 
     public void updateParticles(){
-        if(frameCount % spawnDelay == 0) activateRandomParticle();
+        if(frameCount % spawnDelay == 0 && automatedGeneration) activateRandomParticle();
 
         ArrayList<Particle> toDeactivate = new ArrayList<Particle>();
 

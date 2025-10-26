@@ -43,6 +43,7 @@ class Decoration extends RectActor {
     if (showBackground) displayBackground();
 
     if (sprite != null) {
+      sprite.setStroke(0);
       shape(sprite, position.x, position.y, size.x, size.y);
     }
   }
