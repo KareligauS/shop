@@ -26,7 +26,7 @@ class DecorationEventHandler{
       default:
           model.runIfNameMatches(clickedDecorations, "logo_back", () -> logoDialogue.startDialogue());
           model.runIfNameMatches(clickedDecorations, "picture_left", () -> pictureDialogue.startDialogue());
-          model.runIfNameMatches(clickedDecorations, "bench", () -> benchDialogue.startDialogue());
+          model.runIfNameMatches(clickedDecorations, "bench_trigger", () -> benchDialogue.startDialogue());
           model.runIfNameMatches(clickedDecorations, "musicbox_inside", () -> {
             if (isInsideMusicBoxActivated) stopMusicParticlesForInsideMusicBox();
             else startMusicParticlesForInsideMusicBox();

@@ -154,6 +154,12 @@ class DecorationManager {
       new PVector(270, 730), new PVector(400, 200), 
       #FF8000, false, generateFullPath("bench"))
     );
+
+    decorations.add(
+      new Decoration("bench_trigger", 
+      new PVector(470, 730), new PVector(200, 200), 
+      #FF8000, false, null)
+    );
   }
 
   /**
