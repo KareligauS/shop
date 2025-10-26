@@ -8,6 +8,8 @@ DecorationManager decorationManager = new DecorationManager("./sprites/decoratio
 DecorationEventHandler decorationEventHandler = new DecorationEventHandler(decorationManager);
 MenuManager menuManager = new MenuManager();
 
+ParticleSystem particleSystem = new ParticleSystem("./sprites/particles/");
+
 DialogueLoader dialogueLoader;
 
 DialogueOverlay startDialogue, endDialogue, logoDialogue;
@@ -35,6 +37,7 @@ void setup() {
   setupCharacters();
   setupDialogue();
   setupItems();
+  setupParticleSources();
 
   decorationManager.init();
   menuManager.init();
@@ -54,6 +57,7 @@ void draw() {
       break;
     case RUNNING:
       decorationManager.displayAll();
+      particleSystem.display(showDebug);
       drawActiveItems();
       if (activeDialogue != null) activeDialogue.draw();
 

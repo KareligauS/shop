@@ -15,6 +15,10 @@ class Decoration extends RectActor {
     updateSprite(spritePath);
   }
 
+  public PShape getSprite(){
+    return sprite;
+  }
+
   /**
    * Updates the sprite of the Decoration.
    */

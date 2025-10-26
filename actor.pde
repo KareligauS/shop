@@ -11,11 +11,6 @@ abstract class IDisplayable {
  */
 abstract class Actor extends IDisplayable {
   public PVector position;
-
-  public void AddOffset(PVector offset){
-    position.add(offset);
-  }
-
   abstract void display();
 }
 
