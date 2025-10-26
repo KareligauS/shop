@@ -15,7 +15,7 @@ DialogueOverlay activeDialogue;
 Character harry, micah;
 HashMap<String, Character> characters = new HashMap<>();
 
-Item testItem, keyItem;
+Item bookItem, keyItem;
 ArrayList<Item> activeItems = new ArrayList<Item>();
 
 enum GameState {
@@ -56,7 +56,7 @@ void draw() {
       drawActiveItems();
       if (activeDialogue != null) activeDialogue.draw();
 
-      if (testItem.isOnDestination() && keyItem.isOnDestination()) {
+      if (bookItem.isOnDestination() && keyItem.isOnDestination()) {
         endDialogue.startDialogue();
         gameState = GameState.FINNISHED;
       }

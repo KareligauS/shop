@@ -23,7 +23,7 @@ void setupDialogue() {
  * Sets up all needed items.
  */
 void setupItems() {
-  testItem = new Item(300, 750, 100, 100, "square", true, 1135, 490);
+  bookItem = new Item(300, 750, 100, 100, "books", true, 1135, 490);
   keyItem = new Item(random(width), random(height), 100, 100, "key", true, 960, 640);
 }
 
