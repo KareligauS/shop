@@ -18,6 +18,11 @@ class DecorationManager {
     decorations.add(
       new Decoration("top_board_sign_back", 
       new PVector(100, 0), new PVector(width - 200, 200), 
+      #555555, true, generateFullPath("None"))
+    );
+    decorations.add(
+      new Decoration("top_board_sign_text", 
+      new PVector(350, 0), new PVector(width - 550, 200), 
       #555555, true, generateFullPath("top_board_sign"))
     );
     decorations.add(
