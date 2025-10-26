@@ -65,6 +65,20 @@ class DecorationManager {
       );
     }
 
+    for (int i = 0; i < 4; i++) {
+      float sizeX = 300;
+      float sizeY = 900;
+      float offset = 27;
+
+      if (i == 2) continue;
+
+      decorations.add(
+        new Decoration("window_glass_" + i, 
+        new PVector(127 + sizeX*i + offset*i, 250), new PVector(sizeX, sizeY), 
+        #FFFFFF, false, generateFullPath("glass"))
+      );
+    }
+
     decorations.add(
       new Decoration("shop_bottom", 
       new PVector(100, height-30), new PVector(width-200, 30), 
