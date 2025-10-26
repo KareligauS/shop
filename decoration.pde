@@ -110,15 +110,15 @@ class DecorationManager {
   /**
    * Displays all active Decorations.
    */
-  public void displayAll(boolean showBackground, boolean showInfo) {
+  public void displayAll() {
     decorations.stream()
       .filter(decoration -> decoration.isActive)
       .forEach(decoration -> {
-        if (showBackground) decoration.displayBackground();
+        if (showDebug) decoration.displayBackground();
         decoration.display();
     });
 
-    if (showInfo) decorations.forEach(Decoration::displayInfo);
+    if (showDebug) decorations.forEach(Decoration::displayInfo);
   }
 
   /**

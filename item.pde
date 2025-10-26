@@ -170,4 +170,14 @@ class Item {
     
     shape(sprite, position.x, position.y);
   }
+
+  /**
+   * Displays the (debug) info. of the Item.
+   */
+  public void displayInfo() {
+    textSize(16);
+    fill(#000000);
+    String message = MessageFormat.format("Name: `{0}` \nPos: ({1}; {2}) \nSize: ({3}; {4})\nState:{5}", name, position.x, position.y, size.x, size.y, state);
+    text(message, (position.x + size.x/2) - 40, (position.y + size.y/2));
+  }
 }

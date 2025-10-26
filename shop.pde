@@ -1,8 +1,8 @@
+import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
-import java.text.MessageFormat;
 import java.util.List;
+import java.util.Map;
 
 DecorationManager decorationManager = new DecorationManager("./sprites/decorations/");
 MenuManager menuManager = new MenuManager();
@@ -52,7 +52,7 @@ void draw() {
       menuManager.displayActive();
       break;
     case RUNNING:
-      decorationManager.displayAll(showDebug, showDebug);
+      decorationManager.displayAll();
       drawActiveItems();
       if (activeDialogue != null) activeDialogue.draw();
 
@@ -60,8 +60,10 @@ void draw() {
         endDialogue.startDialogue();
         gameState = GameState.FINNISHED;
       }
+      if (showDebug) activeItems.forEach(Item::displayInfo);
       break;
     case FINNISHED:
+      decorationManager.displayAll();
       drawActiveItems();
       if (activeDialogue != null) activeDialogue.draw();
       break;
