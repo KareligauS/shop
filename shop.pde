@@ -59,6 +59,7 @@ void draw() {
 
       if (areItemsOnDestination()) {
         endDialogue.startDialogue();
+        keyItem.deactivate();
         gameState = GameState.FINNISHED;
       }
       if (showDebug) activeItems.forEach(Item::displayInfo);
