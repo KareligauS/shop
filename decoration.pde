@@ -19,6 +19,11 @@ class Decoration extends RectActor {
    * Updates the sprite of the Decoration.
    */
   public void updateSprite(String path) {
+    if (path == null) {
+      println("Notice: " + path + " for " + name + " is null. Change if not intended.");
+      return;
+    }
+
     try {
       sprite = loadShape(path);
     }

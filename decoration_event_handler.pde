@@ -22,7 +22,7 @@ class DecorationEventHandler{
         });
         break;
       default:
-        model.runIfNameMatches(clickedDecorations, "logo", () -> logoDialogue.startDialogue());
+        model.runIfNameMatches(clickedDecorations, "logo_back", () -> logoDialogue.startDialogue());
         break;
     }
   }

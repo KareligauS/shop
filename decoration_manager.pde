@@ -13,17 +13,22 @@ class DecorationManager {
     decorations.add(
       new Decoration("top_board_back", 
       new PVector(0, 0), new PVector(width, 200), 
-      #333333, true, generateFullPath("top_board_back"))
+      #999999, true, generateFullPath("top_board_back"))
     );
     decorations.add(
       new Decoration("top_board_sign_back", 
       new PVector(100, 0), new PVector(width - 200, 200), 
-      #555555, true, generateFullPath("None"))
+      #999999, true, null)
     );
     decorations.add(
       new Decoration("top_board_sign_text", 
       new PVector(350, 0), new PVector(width - 550, 200), 
-      #555555, true, generateFullPath("top_board_sign"))
+      #999999, true, generateFullPath("top_board_sign"))
+    );
+    decorations.add(
+      new Decoration("logo_back", 
+      new PVector(150, 0), new PVector(200, 200), 
+      #555555, true, null)
     );
     decorations.add(
       new Decoration("logo", 
