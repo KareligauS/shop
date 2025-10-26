@@ -24,7 +24,10 @@ void setupDialogue() {
  */
 void setupItems() {
   bookItem = new Item(300, 750, 100, 100, "books", true, 1135, 490);
-  keyItem = new Item(random(width), random(height), 100, 100, "key", true, 960, 640);
+  keyItem = new Item(1190, 380, 100, 100, "key", true, 960, 640);
+  boxItem1 = new Item(1190, 380, 100, 100, "box", true, 1575, 730);
+  boxItem2 = new Item(1520, 830, 100, 100, "box", false);
+  boxItem3 = new Item(1630, 830, 100, 100, "box", false);
 }
 
 // Draw Acvtive
@@ -60,4 +63,8 @@ String capitalize(String str) {
  */
 void showDebug() {
   showDebug = !showDebug;
+}
+
+boolean areItemsOnDestination() {
+  return bookItem.isOnDestination() && keyItem.isOnDestination() && boxItem1.isOnDestination();
 }
