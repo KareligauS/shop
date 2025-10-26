@@ -21,10 +21,16 @@ class Character {
     characters.put(name, this);
   }
 
+  /**
+   * Sets the emotion of the character.
+   */
   public void setEmotion(Emotion emotion) {
     this.emotion = emotion;
   }
 
+  /**
+   * Updates the sprite of the character.
+   */
   public void updateSprite() {
     String path = "./sprites/characters/" + name + "/" + emotion.toString().toLowerCase() + ".svg";
 
@@ -37,6 +43,11 @@ class Character {
     }
   }
 
+  /**
+   * Gets the sprite of the character.
+   *
+   * @return a PShape of the sprite
+   */
   public PShape getSprite() {
     return sprite;
   }

@@ -1,8 +1,8 @@
 class MenuManager {
-  ArrayList<Menu> menus = new ArrayList<Menu>();
-  Menu activeMenu;
+  private ArrayList<Menu> menus = new ArrayList<Menu>();
+  private Menu activeMenu;
 
-  /*
+  /**
    * Initializes all the menus.
    */
   public void init() {
@@ -22,14 +22,14 @@ class MenuManager {
     );
   }
 
-  /*
+  /**
    * Displays the active menu if present.
    */
   public void displayActive() {
     if (activeMenu != null) activeMenu.draw();
   }
 
-  /*
+  /**
    * Opens a new menu, depending on the menu's name.
    *
    * @param name The name of the menu to open
@@ -44,7 +44,7 @@ class MenuManager {
     activeMenu.openMenu();
   }
 
-  /*
+  /**
    * Closes the active menu.
    */
   public void closeMenu() {
@@ -53,21 +53,21 @@ class MenuManager {
     gameState = GameState.RUNNING;
   }
 
-  /*
+  /**
    * Handles mousePressed for the active menu.
    */
   public void buttonPressed() {
     if (activeMenu != null) activeMenu.buttonPressed();
   }
 
-  /*
+  /**
    * Handles mouseReleased for the active menu.
    */
   public void buttonReleased() {
     if (activeMenu != null) activeMenu.buttonReleased();
   }
 
-  /*
+  /**
    * Handles the changing of the cursor for the active menu.
    */
   public void setCursor() {
@@ -77,15 +77,15 @@ class MenuManager {
 }
 
 class Menu {
-  ArrayList<Button> buttons = new ArrayList<Button>();
-  String name;
+  private ArrayList<Button> buttons = new ArrayList<Button>();
+  private String name;
 
-  Menu(String name, ArrayList<Button> buttons) {
+  public Menu(String name, ArrayList<Button> buttons) {
     this.name = name;
     this.buttons = buttons;
   }
   
-  /*
+  /**
    * Gets the name of the menu.
    * 
    * @return a string of the name of the menu
@@ -94,7 +94,7 @@ class Menu {
     return name;
   }
 
-  /*
+  /**
    * Draws all the buttons for the menu.
    */
   private void drawButtons() {  
@@ -102,7 +102,7 @@ class Menu {
     menuManager.setCursor();
   }
 
-  /*
+  /**
    * Sets the cursor to HAND or ARROW depenind if the cursor is hovering on a button.
    */
   public void setCursor() {
@@ -113,14 +113,14 @@ class Menu {
     }
   }
 
-  /*
+  /**
    * Opens the menu; activating all the buttons.
    */
   public void openMenu() {
     buttons.stream().forEach(Button::activate);
   }
 
-  /*
+  /**
    * Draws the menu; background, text, and buttons.
    */
   public void draw() {
@@ -138,21 +138,21 @@ class Menu {
     drawButtons();
   }
 
-  /*
+  /**
    * Closes the menu; deactivating all the buttons.
    */
   public void closeMenu() {
     buttons.forEach(Button::deactivate);
   }
 
-  /*
+  /**
    * Handles mousePressed by itterating over all buttons.
    */
   public void buttonPressed() {
     buttons.forEach(Button::buttonPressed);
   }
 
-  /*
+  /**
    * Hanldes mouseReleased by itterating over all buttons.
    */
   public void buttonReleased() {

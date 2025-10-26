@@ -39,6 +39,11 @@ class DialogueOverlay {
     updateDialogue();
   }
 
+  /**
+   * Draws the background for the dialogue-overlay - character-back, and text-back.
+   *
+   * @return a PShape of the background
+   */
   private PShape drawBackground() {
     PShape back = createShape(GROUP);
 
@@ -57,6 +62,9 @@ class DialogueOverlay {
     return back;
   }
 
+  /**
+   * Draws the character associated with the dialogue. 
+   */
   private void drawCharacter() {
     character.setEmotion(characterEmotion);
     character.updateSprite();
@@ -68,6 +76,9 @@ class DialogueOverlay {
     shape(characterSprite, characterSpriteLoc.x, characterSpriteLoc.y, character.size.x, character.size.y);
   }
 
+  /**
+   * Draws the text for the dialogue - header-text and dialogue-text.
+   */
   private void drawDialogue() {
     pushStyle();
     textAlign(LEFT, TOP);
@@ -84,6 +95,9 @@ class DialogueOverlay {
     popStyle();
   }
 
+  /**
+   * Starts the dialogue if no other dialogue is currently active.
+   */
   public void startDialogue() {
     if (activeDialogue != null) return;
 
@@ -92,10 +106,17 @@ class DialogueOverlay {
     activeDialogue = this;
   }
 
+  /**
+   * Stops all active dialogue.
+   */
   public void stopDialogue() {
     activeDialogue = null;
   }
-  
+
+  /**
+   * Updates the active dialogue to the next snippet - character, text. 
+   * Stops if all dialogue has been played.
+   */
   public void updateDialogue() {
     if (dialogueLoader.getProgress() == 1) {
       stopDialogue();
@@ -108,7 +129,10 @@ class DialogueOverlay {
     characterSprite = character.getSprite();
     dialogue = dialogueLoader.getCurrentText();
   }
-  
+
+  /**
+   * Draws the active dialogue - character, text.
+   */
   public void draw() {
     shape(background);
 
@@ -117,11 +141,17 @@ class DialogueOverlay {
     drawDialogue();
   }
 
+  /**
+   * Advances dialogue to the next snippet.
+   */
   public void nextDialogue() {
     dialogueLoader.next();
     updateDialogue();
   }
 
+  /**
+   * Gos back to previous dialogue snippet.
+   */
   public void previousDialogue() {
     dialogueLoader.previous();
     updateDialogue();

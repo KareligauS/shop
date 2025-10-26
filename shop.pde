@@ -57,8 +57,8 @@ void draw() {
       if (activeDialogue != null) activeDialogue.draw();
 
       if (testItem.isOnDestination() && keyItem.isOnDestination()) {
-        gameState = GameState.FINNISHED;
         endDialogue.startDialogue();
+        gameState = GameState.FINNISHED;
       }
       break;
     case FINNISHED:

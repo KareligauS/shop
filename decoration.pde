@@ -6,7 +6,9 @@ class DecorationManager {
     spriteRootPath = rootPath;
   }
 
-  //Method that instantiates all decorations.
+  /**
+   * Initiates all decorations.
+   */
   public void init() {
     decorations.add(
       new Decoration("top_board_back", 
@@ -105,6 +107,9 @@ class DecorationManager {
     );
   }
 
+  /**
+   * Displays all active Decorations.
+   */
   public void displayAll(boolean showBackground, boolean showInfo) {
     decorations.stream()
       .filter(decoration -> decoration.isActive)
@@ -116,11 +121,10 @@ class DecorationManager {
     if (showInfo) decorations.forEach(Decoration::displayInfo);
   }
 
+  /**
+   * Handles clicking on the Decorations
+   */
   public void handleMousePressed(PVector mousePosition){
-    processClickedOnDecoration(mousePosition);
-  }
-
-  public void processClickedOnDecoration(PVector mousePosition){
     List<Decoration> clickedDecorations = decorations.stream()
       .filter(item -> item.isInside(mousePosition))
       .toList();
@@ -128,10 +132,20 @@ class DecorationManager {
     runIfNameMatches(clickedDecorations, "logo", () -> logoDialogue.startDialogue());
   }
 
+  /**
+   * Runs the action associated with the Decoration pressed.
+   */
   public void runIfNameMatches(List<Decoration> collection, String name, Runnable action){
     if (collection.stream().anyMatch(item -> item.name == name)) action.run();
   }
   
+  /**
+   * Generates the full path of the sprite
+   *
+   * @param filename the name of the file to get the full path for
+   *
+   * @return a String with the full path to the SVG-file for the sprite
+   */
   public String generateFullPath(String filename) {
     return spriteRootPath + filename + ".svg";
   }
@@ -153,6 +167,9 @@ class Decoration extends RectActor {
     updateSprite(spritePath);
   }
 
+  /**
+   * Updates the sprite of the Decoration.
+   */
   public void updateSprite(String path) {
     try {
       sprite = loadShape(path);
@@ -163,7 +180,10 @@ class Decoration extends RectActor {
     }
   }
 
-  void display() {
+  /**
+   * Displays the item.
+   */
+  public void display() {
     if (doStroke) stroke(0);
     else noStroke();
 
@@ -172,7 +192,10 @@ class Decoration extends RectActor {
     if (sprite != null) shape(sprite, position.x, position.y, size.x, size.y);
   }
 
-  void displayInfo() {
+  /**
+   * Displays the (debug) info. of the Decoration.
+   */
+  public void displayInfo() {
     textSize(16);
     fill(#000000);
     String message = MessageFormat.format("Name: `{0}` \nPos: ({1}; {2}) \nSize: ({3}; {4})", name, position.x, position.y, size.x, size.y);
