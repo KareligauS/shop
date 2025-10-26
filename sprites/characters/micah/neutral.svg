@@ -24,8 +24,8 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="px"
      inkscape:zoom="1.2167208"
-     inkscape:cx="276.56303"
-     inkscape:cy="259.30352"
+     inkscape:cx="276.56304"
+     inkscape:cy="259.30353"
      inkscape:window-width="1920"
      inkscape:window-height="1131"
      inkscape:window-x="0"
@@ -39,13 +39,13 @@
      inkscape:groupmode="layer"
      id="layer1">
     <circle
-       style="fill:#1a1a1a;stroke-width:3.69514;stroke-linecap:square;paint-order:stroke markers fill"
+       style="fill:#9f2f4c;stroke-width:3.69514;stroke-linecap:square;paint-order:stroke markers fill;fill-opacity:1"
        id="path1"
        cx="256"
        cy="185.69127"
        r="150" />
     <ellipse
-       style="fill:#1a1a1a;stroke-width:3.77953;stroke-linecap:square;paint-order:stroke markers fill"
+       style="fill:#9f2f4c;stroke-width:3.77953;stroke-linecap:square;paint-order:stroke markers fill;fill-opacity:1"
        id="path2"
        cx="256"
        cy="573.35101"
