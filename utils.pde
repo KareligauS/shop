@@ -17,16 +17,19 @@ void setupDialogue() {
   logoDialogue = new DialogueOverlay("logo");
   startDialogue = new DialogueOverlay("intro");
   endDialogue = new DialogueOverlay("end");
+
+  musicboxOnDialogue = new DialogueOverlay("musicbox_on");
+  musicboxOffDialogue = new DialogueOverlay("musicbox_off");
 }
 
 void setupParticleSources(){
-  ParticleSource musicBoxInsideLeftSource = new ParticleSource(new PVector(525, 600), new PVector(350, 350), new PVector(40, 40), new PVector(75, 75), 2, 50, true);
+  ParticleSource musicBoxInsideLeftSource = new ParticleSource(new PVector(525, 600), new PVector(350, 350), new PVector(40, 40), new PVector(75, 75), 2, 50, false);
   particleSystem.register("left_musicbox_inside", musicBoxInsideLeftSource);
   particleSystem.fillSource("left_musicbox_inside", 5, "noteA");
   particleSystem.fillSource("left_musicbox_inside", 5, "noteB");
   particleSystem.fillSource("left_musicbox_inside", 5, "noteC");
 
-  ParticleSource musicBoxInsideRightSource = new ParticleSource(new PVector(700, 600), new PVector(825, 350), new PVector(40, 40), new PVector(75, 75), 2, 50, true);
+  ParticleSource musicBoxInsideRightSource = new ParticleSource(new PVector(700, 600), new PVector(825, 350), new PVector(40, 40), new PVector(75, 75), 2, 50, false);
   particleSystem.register("right_musicbox_inside", musicBoxInsideRightSource);
   particleSystem.fillSource("right_musicbox_inside", 5, "noteA");
   particleSystem.fillSource("right_musicbox_inside", 5, "noteB");

@@ -1,3 +1,5 @@
+import processing.sound.*;
+
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -13,6 +15,7 @@ ParticleSystem particleSystem = new ParticleSystem("./sprites/particles/");
 DialogueLoader dialogueLoader;
 
 DialogueOverlay startDialogue, endDialogue, logoDialogue;
+DialogueOverlay musicboxOffDialogue, musicboxOnDialogue;
 DialogueOverlay activeDialogue;
 
 Character harry, micah;

@@ -1,6 +1,7 @@
 class DecorationEventHandler{
   private DecorationManager model;
-  private boolean isDoorOpened;
+  private boolean isDoorOpened = false;
+  private boolean isInsideMusicBoxActivated = false;
 
   public DecorationEventHandler(DecorationManager model){
     this.model = model;
@@ -22,13 +23,16 @@ class DecorationEventHandler{
         });
         break;
       default:
-        model.runIfNameMatches(clickedDecorations, "logo_back", () -> logoDialogue.startDialogue());
+          model.runIfNameMatches(clickedDecorations, "musicbox_inside", () -> {
+            if (isInsideMusicBoxActivated) stopMusicParticlesForInsideMusicBox();
+            else startMusicParticlesForInsideMusicBox();
+          });
         break;
     }
   }
 
   /** 
-    * Specific events for decorations
+    * Specific events handling for decorations
     */
   public void openDoor(){
     model.changeSprite("door_body", "door_opened");
@@ -40,5 +44,19 @@ class DecorationEventHandler{
     model.changeSprite("door_body", "door_closed");
     model.changeSize("door_body", new PVector(300, 530));
     isDoorOpened = false;
+  }
+
+  public void startMusicParticlesForInsideMusicBox(){
+    particleSystem.doAutomaticGeneration("left_musicbox_inside", true);
+    particleSystem.doAutomaticGeneration("right_musicbox_inside", true);
+    isInsideMusicBoxActivated = true;
+    musicboxOnDialogue.startDialogue();
+  }
+
+  public void stopMusicParticlesForInsideMusicBox(){
+    particleSystem.doAutomaticGeneration("left_musicbox_inside", false);
+    particleSystem.doAutomaticGeneration("right_musicbox_inside", false);
+    isInsideMusicBoxActivated = false;
+    musicboxOffDialogue.startDialogue();
   }
 }

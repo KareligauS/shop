@@ -14,6 +14,10 @@ class ParticleSystem {
     sources.remove(id);
   }
 
+  public void doAutomaticGeneration(String id, boolean state){
+    sources.get(id).doAutomaticGeneration(state);
+  }
+
   public void fillSource(String id, int count, String particleSpritePath) {
     sources.get(id).addParticles(count, generateFullPath(particleSpritePath));
   }

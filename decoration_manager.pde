@@ -65,6 +65,31 @@ class DecorationManager {
       #FFFFFF, false, generateFullPath("musicbox"))
     );
 
+    //Shelf
+    for (int i = 0; i < 5; i++) {
+      float sizeX = 300;
+      float sizeY = 10;
+      float offset = 100;
+
+      decorations.add(
+        new Decoration("shelf_rack_horizontal_" + i, 
+        new PVector(1108, 480 + sizeY*i + offset*i), new PVector(sizeX, sizeY), 
+        #555555, true, generateFullPath("shelf_rack_horizontal"))
+      );
+    }
+
+    for (int i = 0; i < 3; i++) {
+      float sizeX = 10;
+      float sizeY = 440;
+      float offset = 135;
+
+      decorations.add(
+        new Decoration("shelf_rack_vertical_" + i, 
+        new PVector(1108 + sizeX*i + offset*i, 480), new PVector(sizeX, sizeY), 
+        #555555, true, generateFullPath("shelf_rack_vertical"))
+      );
+    }
+
     //Front Layout
     decorations.add(
       new Decoration("shop_top", 
@@ -116,31 +141,6 @@ class DecorationManager {
       new PVector(781, 400), new PVector(300, 530), 
       #FFFF33, false, generateFullPath("door_closed"))
     );
-
-    //Shelf
-    for (int i = 0; i < 5; i++) {
-      float sizeX = 300;
-      float sizeY = 10;
-      float offset = 100;
-
-      decorations.add(
-        new Decoration("shelf_rack_horizontal_" + i, 
-        new PVector(1108, 480 + sizeY*i + offset*i), new PVector(sizeX, sizeY), 
-        #555555, true, generateFullPath("shelf_rack_horizontal"))
-      );
-    }
-
-    for (int i = 0; i < 3; i++) {
-      float sizeX = 10;
-      float sizeY = 440;
-      float offset = 135;
-
-      decorations.add(
-        new Decoration("shelf_rack_vertical_" + i, 
-        new PVector(1108 + sizeX*i + offset*i, 480), new PVector(sizeX, sizeY), 
-        #555555, true, generateFullPath("shelf_rack_vertical"))
-      );
-    }
 
     //Bench
     decorations.add(

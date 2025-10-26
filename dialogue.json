@@ -63,5 +63,32 @@
         {
             "text": "EOD"
         }
+    ],
+    "musicbox_on": [
+        {
+            "char": "micah",
+            "emotion": "happy",
+            "text": "The music is perfect"
+        },
+        {
+            "text": "Makes me want to dance."
+        },
+        {
+            "text": "EOD"
+        }
+    ],
+    "musicbox_off": [
+        {
+            "char": "micah",
+            "emotion": "neutral",
+            "text": "Time to wrap it up."
+        },
+        {
+            "emotion": "angry",
+            "text": "Let's get to work."
+        },
+        {
+            "text": "EOD"
+        }
     ]
 }
