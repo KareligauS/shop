@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 DecorationManager decorationManager = new DecorationManager("./sprites/decorations/");
+DecorationEventHandler decorationEventHandler = new DecorationEventHandler(decorationManager);
 MenuManager menuManager = new MenuManager();
 
 DialogueLoader dialogueLoader;
@@ -82,7 +83,8 @@ void mousePressed() {
     if (activeDialogue != null) {
       activeDialogue.nextDialogue();
     } else {
-      decorationManager.handleMousePressed(new PVector(mouseX, mouseY));
+      decorationEventHandler.handleMousePressed(new PVector(mouseX, mouseY));
+      
       activeItems.stream()
         .filter(item -> item.getState() == ItemState.HOVERING)
         .forEach(Item::buttonPressed);

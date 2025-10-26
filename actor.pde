@@ -39,13 +39,20 @@ abstract class RectActor extends Actor {
   }
 
   /**
-   * 
+   * Determines if position is inside rect body of actor.
    */
   public boolean isInside(PVector pointerPosition){
     if (pointerPosition.x > minX() && pointerPosition.x < maxX() && pointerPosition.y > minY() && pointerPosition.y < maxY()) 
       return true;
     else
       return false;
+  }
+
+  /**
+   * Changes size of the actor.
+   */
+  public void changeSize(PVector size){
+    this.size = new PVector(size.x, size.y);
   }
 
   /**
