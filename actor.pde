@@ -19,6 +19,8 @@ abstract class Actor extends IDisplayable {
  */
 abstract class RectActor extends Actor {
   public boolean doStroke = false;
+  public color strokeColor = #FFFFFF;
+  public float strokeWeight = 2f;
   public color backgroundColor = #000000;
   public PVector size = new PVector(0, 0);
 
@@ -26,11 +28,20 @@ abstract class RectActor extends Actor {
    * Displays the (debug) background of the Actor.
    */
   public void displayBackground(){
-    if (doStroke) stroke(0);
-    else noStroke();
-    
+    setupStroke();
     fill(backgroundColor);
     rect(position.x, position.y, size.x, size.y);
+  }
+
+  /**
+   * Setups the stroke according to stroke params.
+   */
+  public void setupStroke(){
+    if (doStroke) {
+      strokeWeight(strokeWeight);
+      stroke(strokeColor);
+    }
+    else noStroke();
   }
 
   /**

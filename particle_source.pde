@@ -1,20 +1,24 @@
 class ParticleSource{
     private PVector startingPoint;
     private PVector endPoint;
-    private PVector particleSize;
+    private PVector particleInitialSize;
+    private PVector particleFinalSize;
     private float particleSpeed;
     private float spawnDelay;
     private float nearTolerance = 10;
+    private boolean doFlick = false;
 
     private ArrayList<Particle> pool = new ArrayList<Particle>();
     private ArrayList<Particle> activeParticles = new ArrayList<Particle>();
 
-    public ParticleSource(PVector startingPoint, PVector endPoint, PVector particleSize, float particleSpeed, float spawnDelay){
+    public ParticleSource(PVector startingPoint, PVector endPoint, PVector particleInitialSize, PVector particleFinalSize, float particleSpeed, float spawnDelay, boolean doFlick){
         this.startingPoint = startingPoint;
         this.endPoint = endPoint;
         this.spawnDelay = spawnDelay;
         this.particleSpeed = particleSpeed;
-        this.particleSize = particleSize;
+        this.particleInitialSize = particleInitialSize;
+        this.particleFinalSize = particleFinalSize;
+        this.doFlick = doFlick;
     }
 
     public void clearParticles(){
@@ -24,8 +28,9 @@ class ParticleSource{
 
     public void addParticles(int count, String particleSpritePath){
         for(int i = 0; i < count; i++){
-            Particle particle = new Particle("particle", startingPoint.copy(), particleSize.copy(), #FFFFFF, false, particleSpritePath, color(random(255)));
+            Particle particle = new Particle("particle", startingPoint.copy(), particleInitialSize.copy(), particleFinalSize.copy(), #FFFFFF, false, particleSpritePath);
             particle.isActive = false;
+            if (doFlick) particle.doStroke = true;
             pool.add(particle);
         }
     }
@@ -57,7 +62,10 @@ class ParticleSource{
         toDeactivate.forEach(item -> deactivateParticle(item));
 
         activeParticles.stream()
-            .forEach(item -> item.moveTowardsPoint(endPoint, particleSpeed));
+            .forEach(item -> {
+                item.moveTowardsPoint(endPoint, particleSpeed);
+                item.changeSizeTowardsPoint(endPoint);
+        });
     }
 
     public void displayParticles(){

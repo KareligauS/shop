@@ -40,12 +40,11 @@ class Decoration extends RectActor {
    * Displays the item.
    */
   public void display() {
-    if (doStroke) stroke(0);
-    else noStroke();
-
     if (showBackground) displayBackground();
 
-    if (sprite != null) shape(sprite, position.x, position.y, size.x, size.y);
+    if (sprite != null) {
+      shape(sprite, position.x, position.y, size.x, size.y);
+    }
   }
 
   /**

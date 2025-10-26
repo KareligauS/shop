@@ -20,7 +20,7 @@ void setupDialogue() {
 }
 
 void setupParticleSources(){
-  ParticleSource testSource = new ParticleSource(new PVector(100, 100), new PVector(300, 300), new PVector(50, 50), 5, 20);
+  ParticleSource testSource = new ParticleSource(new PVector(100, 100), new PVector(300, 300), new PVector(10, 10), new PVector(50, 50), 5, 20, true);
   particleSystem.register("test", testSource);
   particleSystem.fillSource("test", 10, "key");
 }
